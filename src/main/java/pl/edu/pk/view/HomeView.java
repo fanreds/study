@@ -3,13 +3,14 @@ package pl.edu.pk.view;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import pl.edu.pk.DAO.UserDAO;
-import pl.edu.pk.EMProducer;
+import pl.edu.pk.business.CurrentUserManager;
+import pl.edu.pk.business.EMProducer;
 import pl.edu.pk.domain.File;
-import pl.edu.pk.domain.User;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Instance;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
@@ -25,11 +26,11 @@ import java.util.List;
  * Time: 3:30 PM
  */
 @Named
-@ConversationScoped
+@ViewScoped
 public class HomeView implements Serializable {
     private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
-    @Inject
-    private Conversation conversation;
+//    @Inject
+//    private Conversation conversation;
     @Inject
     private CurrentUserManager currentUserManager;
     @Inject
@@ -40,15 +41,12 @@ public class HomeView implements Serializable {
 
     private File file;
 
-    public void paint(OutputStream stream, Object object) throws IOException {
-        stream.write(getFiles().get((Integer) object).getData());
-        stream.close();
-    }
 
     public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
         file.getData();
 
+        setFile(new File());
         getFile().setFileName(file.getName());
         getFile().setContent(file.getData());
         currentUserManager.getUser().getFiles().add(getFile());
@@ -57,30 +55,6 @@ public class HomeView implements Serializable {
 //        files.add(file);
     }
 
-    public String clearUploadData() {
-        files.clear();
-        return null;
-    }
-
-    public Integer getSize() {
-        if (getFiles().size() > 0) {
-            return getFiles().size();
-        } else {
-            return 0;
-        }
-    }
-
-    public Long getTimeStamp() {
-        return System.currentTimeMillis();
-    }
-
-    public ArrayList<UploadedFile> getFiles() {
-        return files;
-    }
-
-    public void setFiles(ArrayList<UploadedFile> files) {
-        this.files = files;
-    }
 
     public File getFile() {
         if (file == null) {
@@ -98,13 +72,19 @@ public class HomeView implements Serializable {
         return currentUserManager.getUser().getFiles();
     }
 
-    public void initConversation() {
-        if (conversation.isTransient()) {
-            conversation.begin();
-        }
-    }
+//    public void initConversation() {
+//        if (conversation.isTransient()) {
+//            conversation.begin();
+//        }
+//    }
 
     public void init() {
-        initConversation();
+//        initConversation();
+    }
+
+    public void delete(File file) {
+        currentUserManager.getUser().getFiles().remove(file);
+        entityManagerInstance.get().update(currentUserManager.getUser());
+        int k=0;
     }
 }

@@ -1,4 +1,4 @@
-package pl.edu.pk.view;
+package pl.edu.pk.business;
 
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.events.PostLoggedOutEvent;

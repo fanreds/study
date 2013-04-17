@@ -1,6 +1,7 @@
 package pl.edu.pk.view;
 
 import org.jboss.seam.security.Identity;
+import pl.edu.pk.business.CurrentUserManager;
 
 import javax.enterprise.inject.Instance;
 import javax.faces.bean.ViewScoped;

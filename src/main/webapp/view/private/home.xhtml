@@ -22,16 +22,29 @@
 
     </ui:define>
     <ui:define name="content">
-        <rich:fileUpload fileUploadListener="#{homeView.listener}" id="upload" acceptedTypes="jpg, gif, png, bmp"
-                         ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');" maxFilesQuantity="5">
-            <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
-        </rich:fileUpload>
+        <h:form id="f1">
+            <h:outputLabel for="upload" value="File Uploader"/>
+            <rich:fileUpload id="upload" acceptedTypes="jpg, gif, png, txt, doc, odt"
+                             ontyperejected="alert('Only JPG, GIF, PNG and TXT files are accepted');"
+                             fileUploadListener="#{homeView.listener}" immediateUpload="true" listHeight="0"
+                             styleClass="avatarUpload">
 
-        <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
-            <h:column>
-                <h:outputText value="#{file.fileName}"/>
-            </h:column>
-        </rich:dataTable>
+                <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
+            </rich:fileUpload>
+        <!--</h:form>-->
+        <!--<h:form id="f2">-->
+            <div class="row-fluid">
+                <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
+                    <h:column>
+                        <h:outputText value="#{file.fileName}"/>
+                    </h:column>
+                    <h:column>
+                        <a4j:commandButton value="Delete" action="#{homeView.delete(file)}"  render="info"/>
+                    </h:column>
+                </rich:dataTable>
+                <rich:messages ajaxRendered="true" for="info"/>
+            </div>
+        </h:form>
     </ui:define>
 
 </ui:composition>

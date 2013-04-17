@@ -9,7 +9,7 @@ import org.picketlink.idm.impl.api.PasswordCredential;
 import org.picketlink.idm.impl.api.model.SimpleUser;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.domain.User;
-import pl.edu.pk.view.CurrentUserManager;
+import pl.edu.pk.business.CurrentUserManager;
 
 import javax.inject.Inject;
 

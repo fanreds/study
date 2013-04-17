@@ -37,9 +37,9 @@ public abstract class User implements Serializable {
     private Date birthday;
     @Embedded
     private Address address;
-    @OneToMany(cascade = CascadeType.ALL)
-    @ForeignKey(name = "FK___PRODUCT___FILES")
-    @JoinColumn(name = "PRODUCT_ID", nullable = true)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ForeignKey(name = "FK___USER___FILES")
+    @JoinColumn(name = "USER_ID", nullable = true)
     private List<File> files;
 
     public User() {

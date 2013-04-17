@@ -3,11 +3,34 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
               version="2.1">
 
+    <!--<navigation-rule>-->
+        <!--<navigation-case>-->
+            <!--<from-outcome>logout</from-outcome>-->
+            <!--<to-view-id>/view/login.xhtml</to-view-id>-->
+            <!--<redirect/>-->
+        <!--</navigation-case>-->
+    <!--</navigation-rule>-->
+    <!--<navigation-rule>-->
+        <!--<from-view-id>/view/login.xhtml</from-view-id>-->
+        <!--<navigation-case>-->
+            <!--<to-view-id>/view/private/home.xhtml</to-view-id>-->
+            <!--<redirect/>-->
+        <!--</navigation-case>-->
+    <!--</navigation-rule>-->
+
     <navigation-rule>
+        <from-view-id>/view/login.xhtml</from-view-id>
         <navigation-case>
+            <from-action>#{identity.login}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/view/private/home.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{loginView.logout}</from-action>
             <from-outcome>logout</from-outcome>
             <to-view-id>/view/login.xhtml</to-view-id>
-            <redirect/>
+            <redirect />
         </navigation-case>
     </navigation-rule>
 </faces-config>
