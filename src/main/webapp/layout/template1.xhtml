@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kleks
+  Date: 1/29/13
+  Time: 10:35 AM
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<!--<f:metadata>-->
+<!--<f:viewParam name="page" value="#{symptomList.pageName}"/>-->
+<!--<f:viewParam name="page" value="#{diseaseList.pageName}"/>-->
+<!--</f:metadata>-->
+
+<h:head>
+    <title>
+        <ui:insert name="windowTitle">
+            <!--#{msgs.placesWindowTitle}-->
+        </ui:insert>
+    </title>
+    <!--<h:outputStylesheet library="css" name="style.css" />-->
+    <link href="#{request.contextPath}/resource/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
+</h:head>
+
+<h:body>
+    Template for User
+
+
+    <div id="kontener">
+        <div id="naglowek"><h1>Academy</h1></div>
+        <div id="menu">
+
+            <ui:insert name="menuleft"/>
+
+            <!--<h:panelGroup rendered="#{identity.loggedIn}">-->
+                <!--<h:outputText value="#{loginView.username}"/>-->
+            <!--</h:panelGroup>-->
+            <pre></pre>
+            <h:button value="home" outcome="/view/private/home"/>
+            <pre></pre>
+            <h:panelGroup rendered="#{not identity.loggedIn}">
+                <h:button value="login" outcome="/view/login"/>
+            </h:panelGroup>
+            <pre></pre>
+            <h:panelGroup rendered="#{identity.loggedIn}">
+                <h:form>
+                    <h:commandButton value="logout" action="#{loginView.logout}" />
+                </h:form>
+            </h:panelGroup>
+        </div>
+
+        <div id="content">
+            <ui:insert name="content"/>
+            <rich:messages ajaxRendered="true"/>
+        </div>
+
+        <div id="stopka">Nowak Marcin</div>
+    </div>
+</h:body>
+</html>

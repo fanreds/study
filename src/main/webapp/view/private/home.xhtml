@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kleks
+  Date: 1/29/13
+  Time: 10:09 AM
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="../../layout/template1.xhtml">
+    <f:metadata>
+        <s:viewAction action="#{homeView.init}"/>
+    </f:metadata>
+
+
+    <ui:define name="menuleft">
+
+    </ui:define>
+    <ui:define name="content">
+        <rich:fileUpload fileUploadListener="#{homeView.listener}" id="upload" acceptedTypes="jpg, gif, png, bmp"
+                         ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');" maxFilesQuantity="5">
+            <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
+        </rich:fileUpload>
+
+        <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
+            <h:column>
+                <h:outputText value="#{file.fileName}"/>
+            </h:column>
+        </rich:dataTable>
+    </ui:define>
+
+</ui:composition>
