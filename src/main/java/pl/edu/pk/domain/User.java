@@ -26,6 +26,7 @@ public abstract class User implements Serializable {
     @Column(name = "PASSWORD")
     String password;
     @Id
+    @Column(name = "ID")
     @SequenceGenerator(name = "STUDENT_ID_SEQUENCE", sequenceName = "STUDENT_ID_SEQUENCE", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STUDENT_ID_SEQUENCE")
     private Long id;
@@ -39,7 +40,7 @@ public abstract class User implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @ForeignKey(name = "FK___USER___FILES")
-    @JoinColumn(name = "USER_ID", nullable = true)
+    @JoinColumn(name = "ID", nullable = true)
     private List<File> files;
 
     public User() {
@@ -112,5 +113,22 @@ public abstract class User implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

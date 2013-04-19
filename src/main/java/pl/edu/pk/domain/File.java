@@ -19,18 +19,27 @@ public class File {
     @Size(min = 1, max = 1000000)
     @Column(name = "FILE_CONTENT", length = 1000000)
     private byte[] content;
-
     @Length(min = 2, max = 255)
     @Column(name = "FILE_NAME", length = 255, nullable = false)
     private String fileName;
-
     @Id
     @GeneratedValue(generator = "FILE_ID_SEQUENCE", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "FILE_ID_SEQUENCE", sequenceName = "FILE_ID_SEQUENCE", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "FILE_ACCESS_ID")
+    private FileAccess fileAccess;
 
     public File() {
+    }
+
+    public FileAccess getFileAccess() {
+        return fileAccess;
+    }
+
+    public void setFileAccess(FileAccess fileAccess) {
+        this.fileAccess = fileAccess;
     }
 
     public byte[] getContent() {

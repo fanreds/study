@@ -135,3 +135,16 @@ a {
 .avatarUpload .rf-fu-btn-cnt-clr {
     display: none;
 }
+.sizeListBox{
+    width: 150px;
+}
+.bigText{
+    font-weight: bold;
+    font-size: 24px;
+}
+.marginBottom{
+    margin-bottom: 30px;
+}
+.marginTop{
+    margin-top: 20px;
+}

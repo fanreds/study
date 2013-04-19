@@ -1,11 +1,12 @@
 package pl.edu.pk.DAO;
 
 import pl.edu.pk.business.EMProducer;
-import pl.edu.pk.domain.User;
+import pl.edu.pk.domain.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +29,24 @@ public class UserDAO implements Serializable {
                 .setParameter("name", login)
                 .getSingleResult();
         return u;
+    }
+
+    public List<Specialization> getAllSpecializations(Academy academy){
+        return entityManager.getEntityManager().createQuery("select s from Specialization s where s.academy=:academy")
+                .setParameter("academy",academy)
+                .getResultList();
+    }
+
+    public List<Group> getAllGroups(Specialization specialization){
+        return entityManager.getEntityManager().createQuery("select g from Group g where g.specialization=:specialization")
+                .setParameter("specialization",specialization)
+                .getResultList();
+    }
+
+    public List<Student> getAllStudents(Group group){
+        return entityManager.getEntityManager().createQuery("select g from Student g where g.group=:group")
+                .setParameter("group",group)
+                .getResultList();
     }
 
     public void refresh(Object o) {

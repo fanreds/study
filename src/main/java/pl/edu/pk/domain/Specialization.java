@@ -25,7 +25,7 @@ public class Specialization implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ACADEMY_ID")
     private Academy academy;
-    @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Group> groups;
 
     public Specialization() {

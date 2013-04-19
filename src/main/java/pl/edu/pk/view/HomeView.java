@@ -1,11 +1,13 @@
 package pl.edu.pk.view;
 
+import org.jboss.seam.transaction.Transactional;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.business.EMProducer;
 import pl.edu.pk.domain.File;
+import pl.edu.pk.domain.FileAccess;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -41,7 +43,7 @@ public class HomeView implements Serializable {
 
     private File file;
 
-
+    @Transactional
     public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
         file.getData();
@@ -49,6 +51,9 @@ public class HomeView implements Serializable {
         setFile(new File());
         getFile().setFileName(file.getName());
         getFile().setContent(file.getData());
+        FileAccess fileAccess=new FileAccess();
+        fileAccess.setShareAll(false);
+        getFile().setFileAccess(fileAccess);
         currentUserManager.getUser().getFiles().add(getFile());
         entityManagerInstance.get().getEntityManager().merge(currentUserManager.getUser());
         entityManagerInstance.get().getEntityManager().flush();
