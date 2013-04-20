@@ -22,7 +22,7 @@ public class MySingleton {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @PostConstruct
+    @PostConstruct
     public void init() {
 
         Calendar calendar = Calendar.getInstance();

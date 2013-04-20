@@ -1,8 +1,13 @@
 package pl.edu.pk.business;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.TransactionSynchronizationRegistry;
 import java.io.Serializable;
 
 /**
@@ -19,11 +24,14 @@ public class EMProducer implements Serializable {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Resource
+    private TransactionSynchronizationRegistry registry;
+
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
-    //    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean update(Object o) {
         try {
             entityManager.merge(o);

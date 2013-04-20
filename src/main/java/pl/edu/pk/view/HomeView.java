@@ -9,14 +9,10 @@ import pl.edu.pk.business.EMProducer;
 import pl.edu.pk.domain.File;
 import pl.edu.pk.domain.FileAccess;
 
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Instance;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +27,17 @@ import java.util.List;
 @ViewScoped
 public class HomeView implements Serializable {
     private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
-//    @Inject
+    //    @Inject
 //    private Conversation conversation;
     @Inject
     private CurrentUserManager currentUserManager;
     @Inject
     private Instance<EMProducer> entityManagerInstance;
-
     @Inject
     private UserDAO userDAO;
-
     private File file;
 
-    @Transactional
+//    @Transactional
     public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
         file.getData();
@@ -51,15 +45,15 @@ public class HomeView implements Serializable {
         setFile(new File());
         getFile().setFileName(file.getName());
         getFile().setContent(file.getData());
-        FileAccess fileAccess=new FileAccess();
-        fileAccess.setShareAll(false);
-        getFile().setFileAccess(fileAccess);
+//        FileAccess fileAccess = new FileAccess();
+//        fileAccess.setShareAll(false);
+//        getFile().setFileAccess(fileAccess);
         currentUserManager.getUser().getFiles().add(getFile());
-        entityManagerInstance.get().getEntityManager().merge(currentUserManager.getUser());
-        entityManagerInstance.get().getEntityManager().flush();
+        entityManagerInstance.get().update(currentUserManager.getUser());
+//        entityManagerInstance.get().getEntityManager().merge(currentUserManager.getUser());
+//        entityManagerInstance.get().getEntityManager().flush();
 //        files.add(file);
     }
-
 
     public File getFile() {
         if (file == null) {
@@ -90,6 +84,6 @@ public class HomeView implements Serializable {
     public void delete(File file) {
         currentUserManager.getUser().getFiles().remove(file);
         entityManagerInstance.get().update(currentUserManager.getUser());
-        int k=0;
+        int k = 0;
     }
 }
