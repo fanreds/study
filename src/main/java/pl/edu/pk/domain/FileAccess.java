@@ -22,19 +22,19 @@ public class FileAccess implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILE_ACCESS_ID_SEQUENCE")
     @Column(name = "ID")
     private Long id;
-//    @OneToOne(optional = true)
-//    @JoinColumn(name = "GROUP_ID", nullable = true)
-//    private Group group;
-//    @OneToOne(optional = true)
-//    @JoinColumn(name = "SPECIALIZATION_ID", nullable = true)
-//    private Specialization specialization;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "FILE_ACCESS__USER",
-//            joinColumns = {@JoinColumn(name = "FILE_ACCESS_ID", referencedColumnName = "ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
-//    @ForeignKey(name = "FK___FILE_ACCESS___FILE_ACCESS___USER", inverseName = "FK___FILE_ACCESS___USER___FILE_ACCESS")
-//    private List<User> users;
+    @OneToOne(optional = true)
+    @JoinColumn(name = "GROUP_ID", nullable = true)
+    private Group group;
+    @OneToOne(optional = true)
+    @JoinColumn(name = "SPECIALIZATION_ID", nullable = true)
+    private Specialization specialization;
+    @ManyToMany
+    @JoinTable(
+            name = "FILE_ACCESS__USER",
+            joinColumns = {@JoinColumn(name = "FILE_ACCESS_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
+    @ForeignKey(name = "FK___FILE_ACCESS___FILE_ACCESS___USER", inverseName = "FK___FILE_ACCESS___USER___FILE_ACCESS")
+    private List<User> users;
     @Column(name = "SHARE_ALL", nullable = false)
     private boolean shareAll;
 
@@ -57,30 +57,30 @@ public class FileAccess implements Serializable {
         this.id = id;
     }
 
-//    public Group getGroup() {
-//        return group;
-//    }
-//
-//    public void setGroup(Group group) {
-//        this.group = group;
-//    }
-//
-//    public Specialization getSpecialization() {
-//        return specialization;
-//    }
-//
-//    public void setSpecialization(Specialization specialization) {
-//        this.specialization = specialization;
-//    }
+    public Group getGroup() {
+        return group;
+    }
 
-//    public List<User> getUsers() {
-//        if (users == null) {
-//            users = new ArrayList<User>();
-//        }
-//        return users;
-//    }
-//
-//    public void setUsers(List<User> users) {
-//        this.users = users;
-//    }
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
+
+    public List<User> getUsers() {
+        if (users == null) {
+            users = new ArrayList<User>();
+        }
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

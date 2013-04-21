@@ -40,7 +40,7 @@ public abstract class User implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @ForeignKey(name = "FK___USER___FILES")
-    @JoinColumn(name = "ID", nullable = true)
+    @JoinColumn(name = "USER_ID", nullable = true)
     private List<File> files;
 
     public User() {

@@ -28,20 +28,20 @@ public class File {
     @SequenceGenerator(name = "FILE_ID_SEQUENCE", sequenceName = "FILE_ID_SEQUENCE", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private Long id;
-//    @OneToOne(cascade = CascadeType.ALL,optional = true)
-//    @JoinColumn(name = "FILE_ACCESS_ID",nullable = true)
-//    private FileAccess fileAccess;
+    @OneToOne(cascade = CascadeType.ALL,optional = true)
+    @JoinColumn(name = "FILE_ACCESS_ID",nullable = true)
+    private FileAccess fileAccess;
 
     public File() {
     }
-//
-//    public FileAccess getFileAccess() {
-//        return fileAccess;
-//    }
-//
-//    public void setFileAccess(FileAccess fileAccess) {
-//        this.fileAccess = fileAccess;
-//    }
+
+    public FileAccess getFileAccess() {
+        return fileAccess;
+    }
+
+    public void setFileAccess(FileAccess fileAccess) {
+        this.fileAccess = fileAccess;
+    }
 
     public byte[] getContent() {
         return content;
