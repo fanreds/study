@@ -1,18 +1,19 @@
 package pl.edu.pk.view;
 
-import org.jboss.seam.transaction.Transactional;
+import org.apache.commons.codec.binary.Base64;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
-import pl.edu.pk.business.EMProducer;
 import pl.edu.pk.domain.File;
 import pl.edu.pk.domain.FileAccess;
+import pl.edu.pk.framework.EMProducer;
 
 import javax.enterprise.inject.Instance;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +27,19 @@ import java.util.List;
 @Named
 @ViewScoped
 public class HomeView implements Serializable {
-    private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
     //    @Inject
 //    private Conversation conversation;
+    private static final String BASE64_PREFIX = "data:image/gif;base64,";
+    private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
     @Inject
     private CurrentUserManager currentUserManager;
     @Inject
-    private Instance<EMProducer> entityManagerInstance;
+    private Instance<UserDAO> userDAO;
     @Inject
-    private UserDAO userDAO;
+    private ImageScaling imageScaling;
     private File file;
 
-//    @Transactional
+    //    @Transactional
     public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
         file.getData();
@@ -45,14 +47,15 @@ public class HomeView implements Serializable {
         setFile(new File());
         getFile().setFileName(file.getName());
         getFile().setContent(file.getData());
-//        FileAccess fileAccess = new FileAccess();
-//        fileAccess.setShareAll(false);
-//        getFile().setFileAccess(fileAccess);
+        FileAccess fileAccess = new FileAccess();
+        fileAccess.setShareAll(false);
+        getFile().setFileAccess(fileAccess);
         currentUserManager.getUser().getFiles().add(getFile());
-        entityManagerInstance.get().update(currentUserManager.getUser());
-//        entityManagerInstance.get().getEntityManager().merge(currentUserManager.getUser());
-//        entityManagerInstance.get().getEntityManager().flush();
-//        files.add(file);
+        userDAO.get().update(currentUserManager.getUser());
+    }
+
+    public String imageToBase64(byte[] image) throws IOException {
+        return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(image, 200, 200));
     }
 
     public File getFile() {
@@ -83,7 +86,7 @@ public class HomeView implements Serializable {
 
     public void delete(File file) {
         currentUserManager.getUser().getFiles().remove(file);
-        entityManagerInstance.get().update(currentUserManager.getUser());
+        userDAO.get().update(currentUserManager.getUser());
         int k = 0;
     }
 }

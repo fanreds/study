@@ -1,11 +1,17 @@
 package pl.edu.pk.DAO;
 
-import pl.edu.pk.business.EMProducer;
+import org.hibernate.Session;
+import org.jboss.seam.transaction.Transactional;
+import pl.edu.pk.business.CurrentUserManager;
+import pl.edu.pk.business.Refresh;
 import pl.edu.pk.domain.*;
+import pl.edu.pk.framework.Standalone;
 
-import javax.ejb.Stateless;
-import javax.enterprise.inject.Instance;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,42 +21,79 @@ import java.util.List;
  * Date: 3/10/13
  * Time: 10:25 AM
  */
-@Stateless
+@ConversationScoped
 public class UserDAO implements Serializable {
 
+    @Standalone
     @Inject
-    private Instance<EMProducer> entityManagerInstance;
+    private EntityManager entityManager;
+    @Inject
+    private Conversation conversation;
+    @Inject
+    private CurrentUserManager currentUserManager;
+
+    @Refresh
+    @Inject
+    private Event<User> userEvent;
 
     public void save(User user) {
-        entityManagerInstance.get().getEntityManager().merge(user);
+        entityManager.merge(user);
     }
 
     public User getUser(String login) {
-        User u = (User) entityManagerInstance.get().getEntityManager().createQuery("select u from User u where u.username = :name")
+        User u = (User) entityManager.createQuery("select u from User u where u.username = :name")
                 .setParameter("name", login)
                 .getSingleResult();
         return u;
     }
 
-    public List<Specialization> getAllSpecializations(Academy academy){
-        return entityManagerInstance.get().getEntityManager().createQuery("select s from Specialization s where s.academy=:academy")
-                .setParameter("academy",academy)
+    public User getUser(User user) {
+        return entityManager.find(User.class,user.getId());
+    }
+
+    public List<Specialization> getAllSpecializations(Academy academy) {
+        return entityManager.createQuery("select s from Specialization s where s.academy=:academy")
+                .setParameter("academy", academy)
                 .getResultList();
     }
 
-    public List<Group> getAllGroups(Specialization specialization){
-        return entityManagerInstance.get().getEntityManager().createQuery("select g from Group g where g.specialization=:specialization")
-                .setParameter("specialization",specialization)
+    public List<Group> getAllGroups(Specialization specialization) {
+        return entityManager.createQuery("select g from Group g where g.specialization=:specialization")
+                .setParameter("specialization", specialization)
                 .getResultList();
     }
 
-    public List<Student> getAllStudents(Group group){
-        return entityManagerInstance.get().getEntityManager().createQuery("select g from Student g where g.group=:group")
-                .setParameter("group",group)
+    public List<Student> getAllStudents(Group group) {
+        return entityManager.createQuery("select g from Student g where g.group=:group")
+                .setParameter("group", group)
                 .getResultList();
     }
 
-    public void refresh(Object o) {
-        entityManagerInstance.get().getEntityManager().refresh(o);
+    public void initConversation() {
+        if (conversation.isTransient()) {
+            conversation.begin();
+        }
+    }
+
+    public void endConversation() {
+        if (!conversation.isTransient()) {
+            conversation.end();
+        }
+    }
+
+    @Transactional
+    public boolean update(Object o) {
+        try {
+//            initConversation();
+            entityManager.merge(o);
+            entityManager.flush();
+            if (o instanceof User){
+                userEvent.fire((User)o);
+            }
+//            endConversation();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

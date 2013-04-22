@@ -103,12 +103,22 @@
             <groupId>org.jboss.seam.transaction</groupId>
             <artifactId>seam-transaction-api</artifactId>
             <version>3.1.0.Final</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-api</artifactId>
+            <version>3.1.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.seam.faces</groupId>
             <artifactId>seam-faces</artifactId>
             <version>3.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

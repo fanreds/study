@@ -39,6 +39,9 @@
                         <h:outputText value="#{file.fileName}"/>
                     </h:column>
                     <h:column>
+                        <h:graphicImage value="#{homeView.imageToBase64(file.content)}"/>
+                    </h:column>
+                    <h:column>
                         <a4j:commandButton value="Delete" action="#{homeView.delete(file)}"  render="info"/>
                     </h:column>
                 </rich:dataTable>

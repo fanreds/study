@@ -45,7 +45,7 @@
                         </rich:columnGroup>
                     </f:facet>
                     <rich:column>
-                        <h:outputText value="#{file.fileName}"/>
+                        <h:outputText value="#{file.fileName}##{file.id}"/>
                     </rich:column>
                     <rich:column>
                         <a4j:commandButton value="Manage" action="#{fileAccessView.setRenderAll(file)}" render="selP selG selS selA"/>

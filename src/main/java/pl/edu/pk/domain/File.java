@@ -28,8 +28,8 @@ public class File {
     @SequenceGenerator(name = "FILE_ID_SEQUENCE", sequenceName = "FILE_ID_SEQUENCE", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL,optional = true)
-    @JoinColumn(name = "FILE_ACCESS_ID",nullable = true)
+    @OneToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "FILE_ACCESS_ID",nullable = false)
     private FileAccess fileAccess;
 
     public File() {

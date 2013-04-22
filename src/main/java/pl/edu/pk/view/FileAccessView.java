@@ -1,5 +1,6 @@
 package pl.edu.pk.view;
 
+import org.apache.commons.codec.binary.Base64;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.*;
@@ -10,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,6 +112,7 @@ public class FileAccessView implements Serializable {
 
         return currentUserManager.getUser().getFiles();
     }
+
 
     public void setSelectedSpecialization(Specialization selectedSpecialization) {
         this.selectedSpecialization = selectedSpecialization;

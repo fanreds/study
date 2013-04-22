@@ -26,7 +26,7 @@ public class CurrentUserManager implements Serializable {
     @Inject
     private Instance<Identity> identityInstance;
     @Inject
-    private UserDAO userDAO;
+    private Instance<UserDAO> userDAO;
 
     @CurrentUser
     @Produces
@@ -43,13 +43,17 @@ public class CurrentUserManager implements Serializable {
                 return user;
             }
         } else {
-            user = userDAO.getUser(username);
+            user = userDAO.get().getUser(username);
         }
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void onRefresh(@Observes @Refresh User user){
+        this.user=userDAO.get().getUser(user);
     }
 
     public void onLogout(@Observes final PostLoggedOutEvent event)
