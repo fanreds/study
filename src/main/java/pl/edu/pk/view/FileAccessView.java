@@ -1,9 +1,10 @@
 package pl.edu.pk.view;
 
-import org.apache.commons.codec.binary.Base64;
+import org.jboss.seam.international.status.Messages;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.*;
+import pl.edu.pk.web.BundleKeys;
 
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
@@ -11,12 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,6 +39,9 @@ public class FileAccessView implements Serializable {
 
         @Override
         public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return "Not Share";
+            }
             return ((Specialization) value).getName();
         }
     };
@@ -60,6 +61,38 @@ public class FileAccessView implements Serializable {
             return ((Student) value).getName();
         }
     };
+    Converter lecturerConverter = new Converter() {
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            for (Lecturer lecturer : allLecturers) {
+                if (lecturer.getName().equals(value)) {
+                    return lecturer;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            return ((Lecturer) value).getName();
+        }
+    };
+    Converter userConverter = new Converter() {
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            for (User user : selectedFile.getFileAccess().getUsers()) {
+                if (user.getName().equals(value)) {
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            return ((User) value).getName();
+        }
+    };
     Converter groupConverter = new Converter() {
         @Override
         public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -73,6 +106,28 @@ public class FileAccessView implements Serializable {
 
         @Override
         public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return "Not Share";
+            }
+            return ((Group) value).getName();
+        }
+    };
+    Converter groupConverterForMySpec = new Converter() {
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            for (Group group : allGroupsForMySpec) {
+                if (group.getName().equals(value)) {
+                    return group;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return "Not Share";
+            }
             return ((Group) value).getName();
         }
     };
@@ -80,22 +135,59 @@ public class FileAccessView implements Serializable {
     private List<Group> allGroups;
     private List<Group> allGroupsForMySpec;
     private List<Student> allStudents;
+    private List<Lecturer> allLecturers;
     private Specialization selectedSpecialization;
     private Group selectedGroup;
-    private List<Student> selectedStudents;
-    private List<Group> selectedGroups;
-    private List<Specialization> selectedSpecializations;
-    private Map<File, Boolean> shareAll;
     private boolean selectedShareAll;
+    private Student selectedStudent;
+    private User selectedUserWithAccess;
+    private Lecturer selectedLecturer;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private UserDAO userDAO;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private CurrentUserManager currentUserManager;
+    @SuppressWarnings("UnusedDeclaration")
+    @Inject
+    private Messages messages;
     private boolean renderUser = false;
     private boolean renderGroup = false;
     private boolean renderSpecialization = false;
     private boolean renderAll = false;
     private File selectedFile;
+
+    public Converter getLecturerConverter() {
+        return lecturerConverter;
+    }
+
+    public Converter getUserConverter() {
+        return userConverter;
+    }
+
+    public void setUserConverter(Converter userConverter) {
+        this.userConverter = userConverter;
+    }
+
+    public Converter getGroupConverterForMySpec() {
+        return groupConverterForMySpec;
+    }
+
+    public Student getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(Student selectedStudent) {
+        this.selectedStudent = selectedStudent;
+    }
+
+    public User getSelectedUserWithAccess() {
+        return selectedUserWithAccess;
+    }
+
+    public void setSelectedUserWithAccess(User selectedUserWithAccess) {
+        this.selectedUserWithAccess = selectedUserWithAccess;
+    }
 
     public Converter getGroupConverter() {
         return groupConverter;
@@ -105,17 +197,45 @@ public class FileAccessView implements Serializable {
         return studentConverter;
     }
 
+    public List<Lecturer> getAllLecturers() {
+        allLecturers = userDAO.getAllLecturers();
+
+        if (currentUserManager.getUser() instanceof Lecturer) {
+            allLecturers.remove(currentUserManager.getUser());
+        }
+        if (selectedFile.getFileAccess().getUsers() != null && !selectedFile.getFileAccess().getUsers().isEmpty()) {
+            for (User user : selectedFile.getFileAccess().getUsers()) {
+                if (allLecturers.contains(user)) {
+                    allLecturers.remove(user);
+                }
+            }
+        }
+        return allLecturers;
+    }
+
+    public void setAllLecturers(List<Lecturer> allLecturers) {
+        this.allLecturers = allLecturers;
+    }
+
+    public Lecturer getSelectedLecturer() {
+        return selectedLecturer;
+    }
+
+    public void setSelectedLecturer(Lecturer selectedLecturer) {
+        this.selectedLecturer = selectedLecturer;
+    }
+
     public Specialization getSelectedSpecialization() {
         return selectedSpecialization;
     }
-    public List<File> getUserFiles() {
-
-        return currentUserManager.getUser().getFiles();
-    }
-
 
     public void setSelectedSpecialization(Specialization selectedSpecialization) {
         this.selectedSpecialization = selectedSpecialization;
+    }
+
+    public List<File> getUserFiles() {
+
+        return currentUserManager.getUser().getFiles();
     }
 
     public Group getSelectedGroup() {
@@ -124,48 +244,6 @@ public class FileAccessView implements Serializable {
 
     public void setSelectedGroup(Group selectedGroup) {
         this.selectedGroup = selectedGroup;
-    }
-
-    public Map<File, Boolean> getShareAll() {
-        if (shareAll == null) {
-            shareAll = new HashMap<File, Boolean>();
-            for (File file:getUserFiles()){
-                shareAll.put(file,false);
-            }
-        }
-        return shareAll;
-    }
-
-    public List<Student> getSelectedStudents() {
-        return selectedStudents;
-    }
-
-    public void setSelectedStudents(List<Student> selectedStudents) {
-        this.selectedStudents = selectedStudents;
-    }
-
-    public List<Group> getSelectedGroups() {
-        return selectedGroups;
-    }
-
-    public void setSelectedGroups(List<Group> selectedGroups) {
-        this.selectedGroups = selectedGroups;
-    }
-
-    public List<Specialization> getSelectedSpecializations() {
-        return selectedSpecializations;
-    }
-
-    public void setSelectedSpecializations(List<Specialization> selectedSpecializations) {
-        this.selectedSpecializations = selectedSpecializations;
-    }
-
-    public boolean isSelectedShareAll() {
-        return selectedShareAll;
-    }
-
-    public void setSelectedShareAll(boolean selectedShareAll) {
-        this.selectedShareAll = selectedShareAll;
     }
 
     public List<Specialization> getAllSpecializations() {
@@ -206,20 +284,22 @@ public class FileAccessView implements Serializable {
         this.allGroups = allGroups;
     }
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     public List<Student> getAllStudents() {
         if (allStudents == null && selectedGroup == null) {
             allStudents = new ArrayList<Student>();
         } else {
-            assert allStudents != null;
-            if (allStudents.isEmpty()) {
-                allStudents = userDAO.getAllStudents(selectedGroup);
-                //            allStudents = selectedGroup.getStudents();
-            } else if (!allStudents.get(0).getGroup().equals(selectedGroup)) {
-                allStudents = userDAO.getAllStudents(selectedGroup);
+            allStudents = userDAO.getAllStudents(selectedGroup);
 
-            }
             if (currentUserManager.getUser() instanceof Student && ((Student) currentUserManager.getUser()).getGroup().equals(selectedGroup)) {
                 allStudents.remove(currentUserManager.getUser());
+            }
+            if (selectedFile.getFileAccess().getUsers() != null && !selectedFile.getFileAccess().getUsers().isEmpty()) {
+                for (User user : selectedFile.getFileAccess().getUsers()) {
+                    if (allStudents.contains(user)) {
+                        allStudents.remove(user);
+                    }
+                }
             }
         }
         return allStudents;
@@ -236,7 +316,6 @@ public class FileAccessView implements Serializable {
     public void clear() {
         allStudents = null;
         selectedGroup = null;
-        selectedStudents = null;
     }
 
     public boolean isRenderUser() {
@@ -253,6 +332,8 @@ public class FileAccessView implements Serializable {
             renderUser = true;
         }
 
+        selectedGroup = null;
+        selectedSpecialization = null;
         selectedFile = file;
     }
 
@@ -271,6 +352,7 @@ public class FileAccessView implements Serializable {
         }
 
         selectedFile = file;
+        selectedGroup = selectedFile.getFileAccess().getGroup();
     }
 
     public boolean isRenderSpecialization() {
@@ -288,6 +370,7 @@ public class FileAccessView implements Serializable {
         }
 
         selectedFile = file;
+        selectedSpecialization = selectedFile.getFileAccess().getSpecialization();
     }
 
     public boolean isRenderAll() {
@@ -305,13 +388,93 @@ public class FileAccessView implements Serializable {
         }
 
         selectedFile = file;
+        selectedShareAll = selectedFile.getFileAccess().getShareAll();
     }
 
     public File getSelectedFile() {
         return selectedFile;
     }
 
-    public String save() {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+    public void saveAll() {
+        boolean stateShareAll = selectedFile.getFileAccess().getShareAll();
+        if (stateShareAll != selectedShareAll) {
+            userDAO.update(selectedFile);
+            messages.info(BundleKeys.SAVE_ACCESS_CONFIRMATION);
+        }
+    }
+
+    public void saveSpecialization() {
+        Specialization stateSpecialization = selectedFile.getFileAccess().getSpecialization();
+        if (stateSpecialization != selectedSpecialization) {
+            userDAO.update(selectedFile);
+            messages.info(BundleKeys.SAVE_ACCESS_CONFIRMATION);
+        }
+    }
+
+    public void saveGroup() {
+        Group stateGroup = selectedFile.getFileAccess().getGroup();
+        if (stateGroup != selectedGroup) {
+            userDAO.update(selectedFile);
+            messages.info(BundleKeys.SAVE_ACCESS_CONFIRMATION);
+        }
+    }
+
+    public void saveUsers() {
+        List<User> users = selectedFile.getFileAccess().getUsers();
+        if (!users.isEmpty()) {
+            userDAO.update(selectedFile);
+            messages.info(BundleKeys.SAVE_ACCESS_CONFIRMATION);
+        }
+    }
+
+    public void addAccessForStudent() {
+        if (selectedStudent != null) {
+            selectedFile.getFileAccess().getUsers().add(selectedStudent);
+            getAllStudents().remove(selectedStudent);
+            if (!isOnlyOneElementForStudents()) {
+                selectedStudent = null;
+            }
+        }
+    }
+
+    public void addAccessForLecturer() {
+        if (selectedLecturer != null) {
+            selectedFile.getFileAccess().getUsers().add(selectedLecturer);
+            getAllStudents().remove(selectedLecturer);
+            if (!isOnlyOneElementForLecturers()) {
+                selectedLecturer = null;
+            }
+        }
+    }
+
+    public void removeAccessForStudent() {
+        if (selectedUserWithAccess != null) {
+            selectedFile.getFileAccess().getUsers().remove(selectedUserWithAccess);
+            selectedUserWithAccess = null;
+        }
+    }
+
+    public boolean isOnlyOneElementForUsers() {
+        if (selectedFile.getFileAccess().getUsers().size() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isOnlyOneElementForStudents() {
+        if (allStudents.size() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isOnlyOneElementForLecturers() {
+        if (allLecturers.size() == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

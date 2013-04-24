@@ -28,11 +28,22 @@ public class File {
     @SequenceGenerator(name = "FILE_ID_SEQUENCE", sequenceName = "FILE_ID_SEQUENCE", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL,optional = false)
-    @JoinColumn(name = "FILE_ACCESS_ID",nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @JoinColumn(name = "FILE_ACCESS_ID", nullable = false)
     private FileAccess fileAccess;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     public File() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public FileAccess getFileAccess() {

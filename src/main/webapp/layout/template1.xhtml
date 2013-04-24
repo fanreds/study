@@ -12,58 +12,65 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
 <!--<f:metadata>-->
 <!--<f:viewParam name="page" value="#{symptomList.pageName}"/>-->
 <!--<f:viewParam name="page" value="#{diseaseList.pageName}"/>-->
 <!--</f:metadata>-->
+<f:view locale="#{localeSelector.selectedLocale}">
+    <h:head>
+        <title>
+            <ui:insert name="windowTitle">
+                <!--#{msgs.placesWindowTitle}-->
+            </ui:insert>
+        </title>
+        <!--<h:outputStylesheet library="css" name="style.css" />-->
+        <link href="#{request.contextPath}/resource/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
+    </h:head>
 
-<h:head>
-    <title>
-        <ui:insert name="windowTitle">
-            <!--#{msgs.placesWindowTitle}-->
-        </ui:insert>
-    </title>
-    <!--<h:outputStylesheet library="css" name="style.css" />-->
-    <link href="#{request.contextPath}/resource/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
-</h:head>
-
-<h:body>
-    Template for User
+    <h:body>
+        Template for User
 
 
-    <div id="kontener">
-        <div id="naglowek"><h1>Academy</h1></div>
-        <div id="menu">
+        <div id="kontener">
+            <h:form>
+                <h:selectOneListbox size="1" value="#{localeSelector.selectedLocale}" onchange="this.form.submit()" converter="#{localeSelector.converter}">
+                    <f:selectItems value="#{localeSelector.availableLocales}" var="locale" itemValue="#{locale}" itemLabel="#{locale.displayName}"/>
+                </h:selectOneListbox>
+            </h:form>
+            <div id="naglowek"><h1>Academy</h1></div>
+            <div id="menu">
 
-            <ui:insert name="menuleft"/>
+                <ui:insert name="menuleft"/>
 
-            <!--<h:panelGroup rendered="#{identity.loggedIn}">-->
+                <!--<h:panelGroup rendered="#{identity.loggedIn}">-->
                 <!--<h:outputText value="#{loginView.username}"/>-->
-            <!--</h:panelGroup>-->
-            <pre></pre>
-            <h:button value="home" outcome="/view/private/home"/>
-            <pre></pre>
-            <h:button value="fileAccess" outcome="/view/private/fileAccess"/>
-            <pre></pre>
-            <h:panelGroup rendered="#{not identity.loggedIn}">
-                <h:button value="login" outcome="/view/login"/>
-            </h:panelGroup>
-            <pre></pre>
-            <h:panelGroup rendered="#{identity.loggedIn}">
-                <h:form>
-                    <h:commandButton value="logout" action="#{loginView.logout}" />
-                </h:form>
-            </h:panelGroup>
-        </div>
+                <!--</h:panelGroup>-->
+                <pre></pre>
+                <h:button value="home" outcome="/view/private/home"/>
+                <pre></pre>
+                <h:button value="upload" outcome="/view/private/upload"/>
+                <pre></pre>
+                <h:button value="fileAccess" outcome="/view/private/fileAccess"/>
+                <pre></pre>
+                <h:panelGroup rendered="#{not identity.loggedIn}">
+                    <h:button value="login" outcome="/view/login"/>
+                </h:panelGroup>
+                <pre></pre>
+                <h:panelGroup rendered="#{identity.loggedIn}">
+                    <h:form>
+                        <h:commandButton value="logout" action="#{loginView.logout}"/>
+                    </h:form>
+                </h:panelGroup>
+            </div>
 
-        <div id="content">
-            <ui:insert name="content"/>
-            <rich:messages ajaxRendered="true"/>
-        </div>
+            <div id="content">
+                <ui:insert name="content"/>
+                <rich:messages ajaxRendered="true"/>
+            </div>
 
-        <div id="stopka">Nowak Marcin</div>
-    </div>
-</h:body>
+            <div id="stopka">Nowak Marcin</div>
+        </div>
+    </h:body>
+</f:view>
 </html>

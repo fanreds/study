@@ -1,6 +1,5 @@
 package pl.edu.pk.DAO;
 
-import org.hibernate.Session;
 import org.jboss.seam.transaction.Transactional;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.business.Refresh;
@@ -8,7 +7,6 @@ import pl.edu.pk.domain.*;
 import pl.edu.pk.framework.Standalone;
 
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -21,7 +19,7 @@ import java.util.List;
  * Date: 3/10/13
  * Time: 10:25 AM
  */
-@ConversationScoped
+
 public class UserDAO implements Serializable {
 
     @Standalone
@@ -31,7 +29,6 @@ public class UserDAO implements Serializable {
     private Conversation conversation;
     @Inject
     private CurrentUserManager currentUserManager;
-
     @Refresh
     @Inject
     private Event<User> userEvent;
@@ -47,8 +44,26 @@ public class UserDAO implements Serializable {
         return u;
     }
 
+    public List<File> getSharedFiles(User user) {
+        return entityManager.createQuery("select distinct f from File f left join f.fileAccess.users u where (f.fileAccess.shareAll=:bool or " +
+                "f.fileAccess.specialization=:specialization or f.fileAccess.group=:group or u=:user)and f.user!=:user" )
+                .setParameter("specialization", ((Student) user).getGroup().getSpecialization())
+                .setParameter("group", ((Student) user).getGroup())
+                .setParameter("user", user)
+                .setParameter("bool",true)
+                .getResultList();
+//        return entityManager.createQuery("select distinct f from File f left join f.fileAccess.users u where (f.fileAccess.shareAll=:bool or " +
+//                "f.fileAccess.specialization=:specialization or f.fileAccess.group=:group or u=:user) and f not member of " +
+//                "(select of from User join fetch o.files of where o=:user and of.shareAll=:bool)" )
+//                .setParameter("specialization", ((Student) user).getGroup().getSpecialization())
+//                .setParameter("group", ((Student) user).getGroup())
+//                .setParameter("user", user)
+//                .setParameter("bool",true)
+//                .getResultList();
+    }
+
     public User getUser(User user) {
-        return entityManager.find(User.class,user.getId());
+        return entityManager.find(User.class, user.getId());
     }
 
     public List<Specialization> getAllSpecializations(Academy academy) {
@@ -66,6 +81,11 @@ public class UserDAO implements Serializable {
     public List<Student> getAllStudents(Group group) {
         return entityManager.createQuery("select g from Student g where g.group=:group")
                 .setParameter("group", group)
+                .getResultList();
+    }
+
+    public List<Lecturer> getAllLecturers() {
+        return entityManager.createQuery("select g from Lecturer g")
                 .getResultList();
     }
 
@@ -87,8 +107,8 @@ public class UserDAO implements Serializable {
 //            initConversation();
             entityManager.merge(o);
             entityManager.flush();
-            if (o instanceof User){
-                userEvent.fire((User)o);
+            if (o instanceof User || o instanceof FileAccess) {
+                userEvent.fire((User) o);
             }
 //            endConversation();
         } catch (Exception e) {

@@ -3,6 +3,20 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
               version="2.1">
 
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+            <supported-locale>pl</supported-locale>
+        </locale-config>
+
+        <resource-bundle>
+            <base-name>view</base-name>
+            <var>messages</var>
+        </resource-bundle>
+
+    </application>
+
     <navigation-rule>
         <navigation-case>
             <from-action>#{loginView.logout}</from-action>

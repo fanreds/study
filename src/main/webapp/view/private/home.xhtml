@@ -13,27 +13,13 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:s="http://jboss.org/seam/faces"
                 template="../../layout/template1.xhtml">
-    <f:metadata>
-        <s:viewAction action="#{homeView.init}"/>
-    </f:metadata>
-
 
     <ui:define name="menuleft">
 
     </ui:define>
     <ui:define name="content">
         <h:form id="f1">
-            <h:outputLabel for="upload" value="File Uploader"/>
-            <rich:fileUpload id="upload" acceptedTypes="jpg, gif, png, txt, doc, odt"
-                             ontyperejected="alert('Only JPG, GIF, PNG and TXT files are accepted');"
-                             fileUploadListener="#{homeView.listener}" immediateUpload="true" listHeight="0"
-                             styleClass="avatarUpload">
-
-                <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
-            </rich:fileUpload>
-        <!--</h:form>-->
-        <!--<h:form id="f2">-->
-            <div class="row-fluid">
+            <!--<div class="row-fluid">-->
                 <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
                     <h:column>
                         <h:outputText value="#{file.fileName}"/>
@@ -41,11 +27,8 @@
                     <h:column>
                         <h:graphicImage value="#{homeView.imageToBase64(file.content)}"/>
                     </h:column>
-                    <h:column>
-                        <a4j:commandButton value="Delete" action="#{homeView.delete(file)}"  render="info"/>
-                    </h:column>
                 </rich:dataTable>
-            </div>
+            <!--</div>-->
 
         </h:form>
     </ui:define>
