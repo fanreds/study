@@ -197,6 +197,7 @@ public class FileAccessView implements Serializable {
         return studentConverter;
     }
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     public List<Lecturer> getAllLecturers() {
         allLecturers = userDAO.getAllLecturers();
 
@@ -437,6 +438,7 @@ public class FileAccessView implements Serializable {
         }
     }
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     public void addAccessForLecturer() {
         if (selectedLecturer != null) {
             selectedFile.getFileAccess().getUsers().add(selectedLecturer);

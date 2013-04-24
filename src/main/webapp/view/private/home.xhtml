@@ -10,8 +10,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:s="http://jboss.org/seam/faces"
                 template="../../layout/template1.xhtml">
 
     <ui:define name="menuleft">
@@ -19,16 +17,30 @@
     </ui:define>
     <ui:define name="content">
         <h:form id="f1">
-            <!--<div class="row-fluid">-->
-                <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
-                    <h:column>
-                        <h:outputText value="#{file.fileName}"/>
-                    </h:column>
-                    <h:column>
-                        <h:graphicImage value="#{homeView.imageToBase64(file.content)}"/>
-                    </h:column>
-                </rich:dataTable>
-            <!--</div>-->
+            <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
+                <f:facet name="header">
+                    <rich:columnGroup>
+                        <rich:column>
+                            File name
+                        </rich:column>
+                        <rich:column>
+                            File
+                        </rich:column>
+                        <rich:column>
+                            Owner
+                        </rich:column>
+                    </rich:columnGroup>
+                </f:facet>
+                <rich:column>
+                    <h:outputText value="#{file.fileName}"/>
+                </rich:column>
+                <rich:column>
+                    <h:graphicImage value="#{homeView.imageToBase64(file.content)}"/>
+                </rich:column>
+                <rich:column>
+                    <h:outputText value="#{file.user.name} #{file.user.forename}"/>
+                </rich:column>
+            </rich:dataTable>
 
         </h:form>
     </ui:define>

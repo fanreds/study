@@ -5,7 +5,6 @@ import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.File;
 
-import javax.enterprise.inject.Instance;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

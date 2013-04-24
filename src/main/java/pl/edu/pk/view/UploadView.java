@@ -26,19 +26,19 @@ import java.util.List;
 @Named
 @ViewScoped
 public class UploadView implements Serializable {
-    //    @Inject
-//    private Conversation conversation;
     private static final String BASE64_PREFIX = "data:image/gif;base64,";
     private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private CurrentUserManager currentUserManager;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private Instance<UserDAO> userDAO;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private ImageScaling imageScaling;
     private File file;
 
-    //    @Transactional
     public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
         file.getData();
@@ -72,16 +72,6 @@ public class UploadView implements Serializable {
     public List<File> getUserFiles() {
 
         return currentUserManager.getUser().getFiles();
-    }
-
-//    public void initConversation() {
-//        if (conversation.isTransient()) {
-//            conversation.begin();
-//        }
-//    }
-
-    public void init() {
-//        initConversation();
     }
 
     public void delete(File file) {

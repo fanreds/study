@@ -1,7 +1,5 @@
 package pl.edu.pk.domain;
 
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,11 +11,8 @@ import java.util.List;
  * Date: 3/10/13
  * Time: 12:26 PM
  */
-//@MappedSuperclass
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@Table(name = "USERS", uniqueConstraints = @UniqueConstraint(name = "UNIQUE___USERS___EMAIL", columnNames = "EMAIL"))
-//@Table(name = "USERS")
 public abstract class User implements Serializable {
 
 
@@ -38,7 +33,7 @@ public abstract class User implements Serializable {
     private Date birthday;
     @Embedded
     private Address address;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 //    @ForeignKey(name = "FK___USER___FILES")
 //    @JoinColumn(name = "USER_ID", nullable = true)
     private List<File> files;
