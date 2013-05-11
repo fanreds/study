@@ -29,47 +29,48 @@
     </h:head>
 
     <h:body>
-        Template for User
-
-
         <div id="kontener">
-            <h:form>
-                <h:selectOneListbox size="1" value="#{localeSelector.selectedLocale}" onchange="this.form.submit()" converter="#{localeSelector.converter}">
-                    <f:selectItems value="#{localeSelector.availableLocales}" var="locale" itemValue="#{locale}" itemLabel="#{locale.displayName}"/>
-                </h:selectOneListbox>
-            </h:form>
-            <div id="naglowek"><h1>Academy</h1></div>
-            <div id="menu">
-
-                <ui:insert name="menuleft"/>
-
-                <!--<h:panelGroup rendered="#{identity.loggedIn}">-->
-                <!--<h:outputText value="#{loginView.username}"/>-->
-                <!--</h:panelGroup>-->
-                <pre></pre>
-                <h:button value="home" outcome="/view/private/home"/>
-                <pre></pre>
-                <h:button value="upload" outcome="/view/private/upload"/>
-                <pre></pre>
-                <h:button value="fileAccess" outcome="/view/private/fileAccess"/>
-                <pre></pre>
-                <h:panelGroup rendered="#{not identity.loggedIn}">
-                    <h:button value="login" outcome="/view/login"/>
-                </h:panelGroup>
-                <pre></pre>
-                <h:panelGroup rendered="#{identity.loggedIn}">
+            <div id="naglowek"></div>
+            <div id="middle">
+                <div id="menu">
                     <h:form>
-                        <h:commandButton value="logout" action="#{loginView.logout}"/>
+                        <h:selectOneListbox size="1" value="#{localeSelector.selectedLocale}"
+                                            onchange="this.form.submit()" converter="#{localeSelector.converter}">
+                            <f:selectItems value="#{localeSelector.availableLocales}" var="locale" itemValue="#{locale}"
+                                           itemLabel="#{locale.displayName}"/>
+                        </h:selectOneListbox>
                     </h:form>
-                </h:panelGroup>
+
+                    <ui:insert name="menuleft"/>
+
+                    <!--<h:panelGroup rendered="#{identity.loggedIn}">-->
+                    <!--<h:outputText value="#{loginView.username}"/>-->
+                    <!--</h:panelGroup>-->
+                    <pre></pre>
+                    <h:button value="home" outcome="/view/private/home"/>
+                    <pre></pre>
+                    <h:button value="upload" outcome="/view/private/upload"/>
+                    <pre></pre>
+                    <h:button value="fileAccess" outcome="/view/private/fileAccess"/>
+                    <pre></pre>
+                    <h:panelGroup rendered="#{not identity.loggedIn}">
+                        <h:button value="login" outcome="/view/login"/>
+                    </h:panelGroup>
+                    <pre></pre>
+                    <h:panelGroup rendered="#{identity.loggedIn}">
+                        <h:form>
+                            <h:commandButton value="logout" action="#{loginView.logout}"/>
+                        </h:form>
+                    </h:panelGroup>
+                </div>
+
+                <div id="content">
+                    <ui:insert name="content"/>
+                    <rich:messages ajaxRendered="true"/>
+                </div>
             </div>
 
-            <div id="content">
-                <ui:insert name="content"/>
-                <rich:messages ajaxRendered="true"/>
-            </div>
-
-            <div id="stopka">Nowak Marcin</div>
+            <!--<div id="stopka">Nowak Marcin</div>-->
         </div>
     </h:body>
 </f:view>

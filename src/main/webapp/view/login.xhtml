@@ -22,7 +22,8 @@
             </script>
         </h:panelGroup>
 
-            <h:form>
+        <h:form>
+            <div class="span12 marginTop">
                 <div class="row-fluid">
                     <h:outputLabel for="login" value="Login:"/>
                     <h:inputText id="login" value="#{credentials.username}"/>
@@ -34,7 +35,8 @@
                 <div class="row-fluid">
                     <h:commandButton action="#{identity.login}" value="Login"/>
                 </div>
-            </h:form>
+            </div>
+        </h:form>
 
 
     </ui:define>
