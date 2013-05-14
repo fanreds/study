@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kleks
+  Date: 1/29/13
+  Time: 10:09 AM
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="../../layout/template1.xhtml">
+
+<ui:define name="menuleft">
+
+</ui:define>
+<ui:define name="content">
+    <h:form id="f1">
+        <div class="row-fluid">
+            <h:outputText value="#{messages['view.message.recipient.question']}" styleClass="bigText"/>
+            <br/>
+            <h:outputLabel value="#{messages['view.message.radio.question']}" for="radioAll"/>
+            <h:selectOneRadio id="radioAll" value="#{messageView.selectedOption}">
+                <f:selectItem itemValue="ALL" itemLabel="#{messages['view.message.radio.option.all']}"/>
+                <f:selectItem itemValue="SPECIALIZATION"
+                              itemLabel="#{messages['view.message.radio.option.specialization']}"/>
+                <f:selectItem itemValue="GROUP" itemLabel="#{messages['view.message.radio.option.group']}"/>
+                <f:selectItem itemValue="STUDENT" itemLabel="#{messages['view.message.radio.option.student']}"/>
+                <f:selectItem itemValue="LECTURER" itemLabel="#{messages['view.message.radio.option.lecturer']}"/>
+                <a4j:ajax event="change" render="selP selGfStu selGfLec selS selA selLEC"
+                          listener="#{messageView.renderer}"/>
+            </h:selectOneRadio>
+        </div>
+        <h:panelGroup id="selA">
+            <h:panelGroup rendered="#{messageView.renderAll}">
+                <div class="row-fluid">
+                    <div class="row-fluid">
+                        <h:outputText value="#{messages['view.message.sendall.question']}" styleClass="bigText"/>
+                    </div>
+                    <h:selectOneRadio id="radioAlla" value="#{messageView.message.forAll}">
+                        <f:selectItem itemValue="true" itemLabel="Yes"/>
+                        <f:selectItem itemValue="false" itemLabel="No"/>
+                    </h:selectOneRadio>
+                </div>
+
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup id="selS">
+            <h:panelGroup rendered="#{messageView.renderSpecialization}">
+                <div class="row-fluid">
+                    <div class="row-fluid">
+                        <h:outputText value="#{messages['view.message.specialization.question']}"
+                                      styleClass="bigText"/>
+                    </div>
+                    <h:selectOneListbox id="specialization2"
+                                        value="#{messageView.message.specialization}"
+                                        converter="#{messageView.specializationConverter}"
+                                        styleClass="sizeListBox">
+                        <f:selectItem itemValue="${null}" itemLabel="Choose"/>
+                        <f:selectItems value="#{messageView.allSpecializations}" var="specialization"
+                                       itemValue="#{specialization}" itemLabel="#{specialization.name}"/>
+                    </h:selectOneListbox>
+                </div>
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup id="selGfStu">
+            <h:panelGroup rendered="#{messageView.renderGroupForStudent}">
+                <div class="row-fluid">
+                    <div class="row-fluid">
+                        <h:outputText value="#{messages['view.message.group.question']}" styleClass="bigText"/>
+                    </div>
+                    <h:selectOneListbox id="group2" value="#{messageView.message.group}"
+                                        converter="#{messageView.groupConverterForMySpec}"
+                                        styleClass="sizeListBox">
+                        <f:selectItem itemValue="${null}" itemLabel="Choose"/>
+                        <f:selectItems value="#{messageView.allGroupsForMySpec}" var="group"
+                                       itemLabel="#{group.name}"
+                                       itemValue="#{group}"/>
+                    </h:selectOneListbox>
+                </div>
+                <div class="row-fluid">
+                    <a4j:commandButton value="Save" action="#{fileAccessView.saveGroup()}"/>
+                </div>
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup id="selGfLec">
+            <h:panelGroup rendered="#{messageView.renderGroup}">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <h:outputLabel value="Specializations" for="specialization"/>
+                        <br/>
+                        <h:selectOneListbox id="specialization" value="#{messageView.selectedSpecialization}"
+                                            converter="#{messageView.specializationConverter}"
+                                            styleClass="sizeListBox">
+                            <f:selectItems value="#{messageView.allSpecializations}" var="specialization"
+                                           itemValue="#{specialization}" itemLabel="#{specialization.name}"/>
+                            <a4j:ajax render="group st1 bAdd" event="change"
+                                      listener="#{messageView.clear}"/>
+                        </h:selectOneListbox>
+                    </div>
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <!--<h:outputText value="#{messages['view.group.information']}"/>-->
+                        </div>
+                        <div class="row-fluid">
+                            <h:outputText value="#{messageView}" styleClass="bigText"/>
+                        </div>
+                        <h:selectOneListbox id="group22" value="#{messageView.message.group}"
+                                            converter="#{messageView.groupConverter}"
+                                            styleClass="sizeListBox">
+                            <f:selectItem itemValue="${null}" itemLabel="Choose"/>
+                            <f:selectItems value="#{messageView.allGroups}" var="group"
+                                           itemLabel="#{group.name}"
+                                           itemValue="#{group}"/>
+                        </h:selectOneListbox>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <a4j:commandButton value="Save" action="#{fileAccessView.saveGroup()}"/>
+                </div>
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup id="selP">
+            <h:panelGroup rendered="#{messageView.renderStudent}">
+                <div class="row-fluid">
+                    <h:outputText value="#{messages['view.message.person.question']}" styleClass="bigText"/>
+                </div>
+                <div class="row-fluid marginTop">
+                    <div class="span6">
+                        <h:outputLabel value="Specializations" for="specialization"/>
+                        <br/>
+                        <h:selectOneListbox id="specialization3" value="#{messageView.selectedSpecialization}"
+                                            converter="#{messageView.specializationConverter}"
+                                            styleClass="sizeListBox">
+                            <f:selectItems value="#{messageView.allSpecializations}" var="specialization"
+                                           itemValue="#{specialization}" itemLabel="#{specialization.name}"/>
+                            <a4j:ajax render="group st1 bAdd" event="change"
+                                      listener="#{messageView.clear}"/>
+                        </h:selectOneListbox>
+                    </div>
+
+                    <div class="span6">
+                        <h:outputLabel value="Groups" for="group"/>
+                        <br/>
+                        <h:selectOneListbox id="group" value="#{messageView.selectedGroup}"
+                                            converter="#{messageView.groupConverter}" styleClass="sizeListBox">
+                            <f:selectItems value="#{messageView.allGroups}" var="group" itemLabel="#{group.name}"
+                                           itemValue="#{group}"/>
+                            <a4j:ajax render="st1 bAdd" event="change"/>
+                        </h:selectOneListbox>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <h:panelGroup id="sSgroup">
+                        <div class="span6">
+                            <h:outputLabel value="Students" for="st1"/>
+                            <br/>
+                            <h:selectOneListbox id="st1" value="#{messageView.message.recipient}"
+                                                converter="#{messageView.studentConverter}"
+                                                styleClass="sizeListBox">
+                                <f:selectItem itemValue="${null}" itemLabel="Students:"/>
+                                <f:selectItems value="#{messageView.allStudents}" var="student"
+                                               itemLabel="#{student.name}"
+                                               itemValue="#{student}"/>
+                                <a4j:ajax render="st2 bAdd" event="change"/>
+                            </h:selectOneListbox>
+                        </div>
+                    </h:panelGroup>
+
+
+                </div>
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup id="selLEC">
+            <h:panelGroup rendered="#{messageView.renderLecturer}">
+                    <div class="span6">
+                        <h:outputLabel value="Lecturers" for="st3"/>
+                        <br/>
+                        <h:selectOneListbox id="st3" value="#{messageView.message.recipient}"
+                                            converter="#{messageView.lecturerConverter}"
+                                            styleClass="sizeListBox">
+                            <f:selectItem itemValue="${null}" itemLabel="Lecturers:"/>
+                            <f:selectItems value="#{messageView.allLecturers}" var="lecturer"
+                                           itemLabel="#{lecturer.name}"
+                                           itemValue="#{lecturer}"/>
+                            <a4j:ajax render="bAdd2" event="change"/>
+                        </h:selectOneListbox>
+                    </div>
+            </h:panelGroup>
+        </h:panelGroup>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <!--<div class="row-fluid">-->
+                    <div>
+                        <h:outputLabel value="#{messages['view.message.subject']}" for="subject"/>
+                        <h:inputText id="subject" value="#{messageView.message.subject}"/>
+                    </div>
+                    <div>
+                        <!--<div class="row-fluid">-->
+                        <h:outputLabel value="#{messages['view.message.content']}" for="content"/>
+                        <h:inputTextarea id="content" value="#{messageView.message.content}" rows="5" cols="75"/>
+                    </div>
+                    <div>
+                        <!--<div class="row-fluid">-->
+                        <a4j:commandButton value="#{messages['view.message.button']}" action="#{messageView.save}" render="@form"/>
+                    </div>
+                </div>
+            </div>
+    </h:form>
+</ui:define>
+
+</ui:composition>

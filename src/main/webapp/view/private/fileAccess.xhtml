@@ -66,7 +66,7 @@
             <div class="row-fluid">
                 <h:outputText value="#{fileAccessView.selectedFile.fileName}" styleClass="bigText"/>
             </div>
-            <!--<h:outputLabel value="#{messages['view.shareall.information']}" for="radioAll"/>-->
+            <h:outputLabel value="#{messages['view.shareall.information']}" for="radioAll"/>
             <h:selectOneRadio id="radioAll" value="#{fileAccessView.selectedFile.fileAccess.shareAll}">
                 <f:selectItem itemValue="true" itemLabel="Yes"/>
                 <f:selectItem itemValue="false" itemLabel="No"/>
@@ -82,7 +82,7 @@
     <h:panelGroup rendered="#{fileAccessView.renderSpecialization}">
         <div class="row-fluid">
             <div class="row-fluid">
-                <!--<h:outputText value="#{messages['view.specialization.information']}"/>-->
+                <h:outputText value="#{messages['view.specialization.information']}"/>
             </div>
             <div class="row-fluid">
                 <h:outputText value="#{fileAccessView.selectedFile.fileName}" styleClass="bigText"/>
@@ -105,7 +105,7 @@
     <h:panelGroup rendered="#{fileAccessView.renderGroup}">
         <div class="row-fluid">
             <div class="row-fluid">
-                <!--<h:outputText value="#{messages['view.group.information']}"/>-->
+                <h:outputText value="#{messages['view.group.information']}"/>
             </div>
             <div class="row-fluid">
                 <h:outputText value="#{fileAccessView.selectedFile.fileName}" styleClass="bigText"/>
@@ -127,7 +127,7 @@
 <h:panelGroup id="selP">
     <h:panelGroup rendered="#{fileAccessView.renderUser}">
         <div class="row-fluid">
-            <!--<h:outputText value="#{messages['view.student.information']}" styleClass=""/>-->
+            <h:outputText value="#{messages['view.student.information']}" styleClass=""/>
         </div>
         <div class="row-fluid">
             <h:outputText value="#{fileAccessView.selectedFile.fileName}" styleClass="bigText"/>

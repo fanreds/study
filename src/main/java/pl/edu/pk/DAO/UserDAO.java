@@ -38,11 +38,18 @@ public class UserDAO implements Serializable {
         return u;
     }
 
-    public List<File> getSharedFiles(User user) {
+    public List<File> getSharedFilesForStudent(User user) {
         return entityManager.createQuery("select distinct f from File f left join f.fileAccess.users u where (f.fileAccess.shareAll=:bool or " +
                 "f.fileAccess.specialization=:specialization or f.fileAccess.group=:group or u=:user)and f.user!=:user")
                 .setParameter("specialization", ((Student) user).getGroup().getSpecialization())
                 .setParameter("group", ((Student) user).getGroup())
+                .setParameter("user", user)
+                .setParameter("bool", true)
+                .getResultList();
+    }
+    public List<File> getSharedFilesForLecturer(User user) {
+        return entityManager.createQuery("select distinct f from File f left join f.fileAccess.users u where (f.fileAccess.shareAll=:bool or " +
+                "u=:user)and f.user!=:user")
                 .setParameter("user", user)
                 .setParameter("bool", true)
                 .getResultList();
@@ -67,6 +74,10 @@ public class UserDAO implements Serializable {
     public List<Student> getAllStudents(Group group) {
         return entityManager.createQuery("select g from Student g where g.group=:group")
                 .setParameter("group", group)
+                .getResultList();
+    }
+    public List<Student> getAllStudents() {
+        return  entityManager.createQuery("select g from Student g")
                 .getResultList();
     }
 

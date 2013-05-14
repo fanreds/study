@@ -4,6 +4,7 @@ import org.apache.commons.codec.binary.Base64;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.File;
+import pl.edu.pk.domain.Student;
 
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -34,6 +35,10 @@ public class HomeView implements Serializable {
     }
 
     public List<File> getUserFiles() {
-        return userDAO.getSharedFiles(currentUserManager.getUser());
+        if (currentUserManager.getUser() instanceof Student) {
+            return userDAO.getSharedFilesForStudent(currentUserManager.getUser());
+        } else {
+            return userDAO.getSharedFilesForLecturer(currentUserManager.getUser());
+        }
     }
 }

@@ -47,11 +47,15 @@
                     <!--<h:outputText value="#{loginView.username}"/>-->
                     <!--</h:panelGroup>-->
                     <pre></pre>
-                    <h:button value="home" outcome="/view/private/home"/>
+                    <h:button value="shared files" outcome="/view/private/home"/>
                     <pre></pre>
-                    <h:button value="upload" outcome="/view/private/upload"/>
+                    <h:button value="upload files" outcome="/view/private/upload"/>
                     <pre></pre>
-                    <h:button value="fileAccess" outcome="/view/private/fileAccess"/>
+                    <h:button value="share manager" outcome="/view/private/fileAccess"/>
+                    <pre></pre>
+                    <h:button value="send message" outcome="/view/private/message"/>
+                    <pre></pre>
+                    <h:button value="change password" outcome="/view/private/changePass"/>
                     <pre></pre>
                     <h:panelGroup rendered="#{not identity.loggedIn}">
                         <h:button value="login" outcome="/view/login"/>

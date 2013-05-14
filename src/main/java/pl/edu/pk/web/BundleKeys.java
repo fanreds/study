@@ -14,4 +14,7 @@ public interface BundleKeys {
     BundleKey SHARE_ACCESS_ONLY_SPECIALIZATION = new BundleKey(BundleNames.view.name(),"view.specialization.information");
     BundleKey SHARE_ACCESS_ONLY_GROUP = new BundleKey(BundleNames.view.name(),"view.group.information");
     BundleKey SHARE_ACCESS_SELECTED_USERS  = new BundleKey(BundleNames.view.name(),"view.student.information");
+    BundleKey MESSAGE_SENDED  = new BundleKey(BundleNames.view.name(),"view.user.message.send");
+    BundleKey PASSWORD_CHANGED  = new BundleKey(BundleNames.view.name(),"view.user.password.change");
+    BundleKey MESSAGE_RECIPIENT_NOT_SELECTED  = new BundleKey(BundleNames.view.name(),"view.message.recipient.nonselected");
 }

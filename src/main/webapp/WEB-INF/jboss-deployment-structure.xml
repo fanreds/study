@@ -4,7 +4,7 @@
         <dependencies>
             <!--<module name="org.infinispan"/>-->
             <!--<module name="org.jgroups"/>-->
-            <!--<module name="javax.validation.api"/>-->
+            <module name="javax.validation.api"/>
             <!--<module name="javax.activation.api"/>-->
             <!--<module name="javax.mail.api"/>-->
             <!--<module name="asm.asm"/>-->
@@ -27,7 +27,7 @@
             <!--<module name="org.slf4j"/>-->
             <!--<module name="org.dom4j"/>-->
             <!--<module name="org.antlr"/>-->
-            <!--<module name="javax.faces.api"/>-->
+            <module name="javax.faces.api"/>
             <!--<module name="com.sun.jsf-impl"/>-->
             <!--<module name="org.joda.time"/>-->
             <!--<module name="com.google.guava"/>-->

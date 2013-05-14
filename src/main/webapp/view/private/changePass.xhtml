@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kleks
+  Date: 1/29/13
+  Time: 10:09 AM
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="../../layout/template1.xhtml">
+
+    <ui:define name="menuleft">
+
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="f1">
+            <div class="span12 marginTop">
+                <div class="row-fluid">
+                    <h:outputLabel value="Old password:" for="oldP"/>
+                    <h:inputText id="oldP" value="#{changePassView.oldPass}"/>
+                </div>
+                <div class="row-fluid">
+                    <h:outputLabel value="New password:" for="newP"/>
+                    <h:inputText id="newP" value="#{changePassView.newPass}">
+                        <f:validateLength minimum="6"/>
+
+                    </h:inputText>
+                </div>
+                <div class="row-fluid">
+                    <h:outputLabel value="Retype new password:" for="rP"/>
+                    <h:inputText id="rP" value="#{changePassView.repeatPass}">
+                        <f:validateLength minimum="6"/>
+                        <a4j:ajax event="change"/>
+                    </h:inputText>
+                </div>
+                <div class="row-fluid">
+                    <h:commandButton value="Submit" action="#{changePassView.save}"/>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

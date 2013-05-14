@@ -93,6 +93,12 @@
             <groupId>org.jboss.seam.international</groupId>
             <artifactId>seam-international</artifactId>
             <version>3.1.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.international</groupId>
+            <artifactId>seam-international-api</artifactId>
+            <version>3.1.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.seam.security</groupId>
@@ -112,6 +118,11 @@
         <dependency>
             <groupId>org.jboss.seam.faces</groupId>
             <artifactId>seam-faces</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.faces</groupId>
+            <artifactId>seam-faces-api</artifactId>
             <version>3.1.0.Final</version>
         </dependency>
         <dependency>

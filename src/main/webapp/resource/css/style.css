@@ -12,7 +12,9 @@ body{
 #middle{
     background-color: white;
     border-radius: 10px;
-    border: 1px solid black;
+    /*border: 1px solid #c71585;*/
+    float: left;
+    width: 100%;
 }
 
 #naglowek {
@@ -29,7 +31,7 @@ body{
     margin-top: 10px;
     background-color: transparent;
     float: left;
-    border: 0px solid black;
+    /*border: 1px solid yellow;*/
 }
 
 #menu ul {
@@ -67,20 +69,21 @@ body{
 }
 
 #content {
-    margin-left: 350px;
+    margin-left: 250px;
     margin-right: 10px;
     height: auto;
-    min-height: 200px;
+    /*min-height: 200px;*/
     background-color: transparent;
-    /*border: 1px solid black;*/
+    /*border: 1px solid red;*/
     padding: 2px;
+    /*float: left;*/
 }
 
 #stopka {
     margin-top: 10px;
     background-color: yellow;
     clear: both;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     text-align: right;
 }
 
@@ -124,16 +127,20 @@ a {
 .span12{
     width: 100%;
     float: left;
+    margin-top: 20px;
+    /*border: 1px solid #da70d6;*/
 }
 
 .span6 {
     width: 50%;
     float: left;
-    /*border: 1px solid black;*/
+    margin-top: 20px;
+    /*border: 1px solid orange;*/
 }
 .span3 {
     width: 25%;
     float: left;
+    margin-top: 20px;
     /*border: 1px solid black;*/
 }
 .button{
@@ -144,10 +151,11 @@ a {
 }
 
 .row-fluid {
-    /*border: 1px solid black;*/
+    /*border: 1px solid green;*/
     width: 100%;
     display: block;
-    clear: both;
+    float: left;
+    /*clear: both;*/
 }
 
 .right-side {
