@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -122,12 +123,16 @@ public class MessageView implements Serializable {
         }
     };
     OPTION selectedOption;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private CurrentUserManager currentUserManager;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private MessageDAO messageDAO;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private UserDAO userDAO;
+    @SuppressWarnings("UnusedDeclaration")
     @Inject
     private Messages messages;
     private Message message;
@@ -144,8 +149,6 @@ public class MessageView implements Serializable {
     private List<Lecturer> allLecturers;
     private Specialization selectedSpecialization;
     private Group selectedGroup;
-    private Student selectedStudent;
-    private Lecturer selectedLecturer;
 
     public boolean isRenderLecturer() {
         return renderLecturer;
@@ -167,22 +170,6 @@ public class MessageView implements Serializable {
         this.selectedGroup = selectedGroup;
     }
 
-    public Student getSelectedStudent() {
-        return selectedStudent;
-    }
-
-    public void setSelectedStudent(Student selectedStudent) {
-        this.selectedStudent = selectedStudent;
-    }
-
-    public Lecturer getSelectedLecturer() {
-        return selectedLecturer;
-    }
-
-    public void setSelectedLecturer(Lecturer selectedLecturer) {
-        this.selectedLecturer = selectedLecturer;
-    }
-
     public Specialization getSelectedSpecialization() {
 
         return selectedSpecialization;
@@ -197,14 +184,6 @@ public class MessageView implements Serializable {
             allGroupsForMySpec = userDAO.getAllGroups(((Student) currentUserManager.getUser()).getGroup().getSpecialization());
         }
         return allGroupsForMySpec;
-    }
-
-    public Converter getConverter() {
-        return studentConverter;
-    }
-
-    public void setConverter(Converter converter) {
-        this.studentConverter = converter;
     }
 
     public Message getMessage() {
@@ -305,6 +284,7 @@ public class MessageView implements Serializable {
             return;
         }
         getMessage().setSender(currentUserManager.getUser());
+        getMessage().setSentDate(new Date());
         messageDAO.persist(getMessage());
         setMessage(new Message());
         messages.info(BundleKeys.MESSAGE_SENDED);
@@ -320,15 +300,9 @@ public class MessageView implements Serializable {
         renderGroupForStudent = false;
         renderSpecialization = false;
         renderLecturer = false;
-//        if (renderStudent && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-//            renderStudent = false;
-//        } else {
         renderStudent = true;
-//        }
-//
         selectedGroup = null;
         selectedSpecialization = null;
-//        selectedFile = file;
     }
 
     public void setRenderLecturer() {
@@ -337,15 +311,9 @@ public class MessageView implements Serializable {
         renderGroupForStudent = false;
         renderSpecialization = false;
         renderStudent = false;
-//        if (renderStudent && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-//            renderStudent = false;
-//        } else {
         renderLecturer = true;
-//        }
-//
         selectedGroup = null;
         selectedSpecialization = null;
-//        selectedFile = file;
     }
 
     public boolean isRenderGroupForStudent() {
@@ -358,14 +326,7 @@ public class MessageView implements Serializable {
         renderGroup = false;
         renderSpecialization = false;
         renderLecturer = false;
-//        if (renderGroup && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-//            renderGroup = false;
-//        } else {
         renderGroupForStudent = true;
-//        }
-//
-//        selectedFile = file;
-//        selectedGroup = selectedFile.getFileAccess().getGroup();
     }
 
     public boolean isRenderGroup() {
@@ -378,14 +339,7 @@ public class MessageView implements Serializable {
         renderSpecialization = false;
         renderGroupForStudent = false;
         renderLecturer = false;
-//        if (renderGroup && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-//            renderGroup = false;
-//        } else {
         renderGroup = true;
-//        }
-//
-//        selectedFile = file;
-//        selectedGroup = selectedFile.getFileAccess().getGroup();
     }
 
     public boolean isRenderSpecialization() {
@@ -398,14 +352,7 @@ public class MessageView implements Serializable {
         renderGroup = false;
         renderGroupForStudent = false;
         renderLecturer = false;
-//        if (renderSpecialization && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-//            renderSpecialization = false;
-//        } else {
         renderSpecialization = true;
-//        }
-
-//        selectedFile = file;
-//        selectedSpecialization = selectedFile.getFileAccess().getSpecialization();
     }
 
     public boolean isRenderAll() {
@@ -418,14 +365,7 @@ public class MessageView implements Serializable {
         renderGroupForStudent = false;
         renderSpecialization = false;
         renderLecturer = false;
-//        if (renderAll && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-//            renderAll = false;
-//        } else {
         renderAll = true;
-//        }
-
-//        selectedFile = file;
-//        selectedShareAll = selectedFile.getFileAccess().getShareAll();
     }
 
     public void renderer() {

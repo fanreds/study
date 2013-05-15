@@ -152,7 +152,8 @@ public class FileAccessView implements Serializable {
     @Inject
     private Messages messages;
     private boolean renderUser = false;
-    private boolean renderGroup = false;
+    private boolean renderGroupForLecturer = false;
+    private boolean renderGroupForStudent = false;
     private boolean renderSpecialization = false;
     private boolean renderAll = false;
     private File selectedFile;
@@ -325,7 +326,8 @@ public class FileAccessView implements Serializable {
 
     public void setRenderUser(File file) {
         renderAll = false;
-        renderGroup = false;
+        renderGroupForLecturer = false;
+        renderGroupForStudent = false;
         renderSpecialization = false;
         if (renderUser && selectedFile != null && selectedFile.getId().equals(file.getId())) {
             renderUser = false;
@@ -338,18 +340,30 @@ public class FileAccessView implements Serializable {
         selectedFile = file;
     }
 
-    public boolean isRenderGroup() {
-        return renderGroup;
+    public boolean isRenderGroupForLecturer() {
+        return renderGroupForLecturer;
+    }
+
+    public boolean isRenderGroupForStudent() {
+        return renderGroupForStudent;
     }
 
     public void setRenderGroup(File file) {
         renderAll = false;
         renderUser = false;
         renderSpecialization = false;
-        if (renderGroup && selectedFile != null && selectedFile.getId().equals(file.getId())) {
-            renderGroup = false;
+        if (renderGroupForLecturer && selectedFile != null && selectedFile.getId().equals(file.getId())) {
+            if (currentUserManager.getUser() instanceof Student) {
+                renderGroupForStudent = false;
+            } else if (currentUserManager.getUser() instanceof Lecturer) {
+                renderGroupForLecturer = false;
+            }
         } else {
-            renderGroup = true;
+            if (currentUserManager.getUser() instanceof Student) {
+                renderGroupForStudent = true;
+            } else if (currentUserManager.getUser() instanceof Lecturer) {
+                renderGroupForLecturer = true;
+            }
         }
 
         selectedFile = file;
@@ -363,7 +377,8 @@ public class FileAccessView implements Serializable {
     public void setRenderSpecialization(File file) {
         renderAll = false;
         renderUser = false;
-        renderGroup = false;
+        renderGroupForLecturer = false;
+        renderGroupForStudent = false;
         if (renderSpecialization && selectedFile != null && selectedFile.getId().equals(file.getId())) {
             renderSpecialization = false;
         } else {
@@ -380,7 +395,8 @@ public class FileAccessView implements Serializable {
 
     public void setRenderAll(File file) {
         renderUser = false;
-        renderGroup = false;
+        renderGroupForLecturer = false;
+        renderGroupForStudent = false;
         renderSpecialization = false;
         if (renderAll && selectedFile != null && selectedFile.getId().equals(file.getId())) {
             renderAll = false;

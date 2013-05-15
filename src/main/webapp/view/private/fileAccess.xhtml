@@ -19,7 +19,12 @@
 <ui:define name="content">
 <h:form id="f1">
 <div class="span6 marginBottom">
-    <rich:dataTable id="info" value="#{fileAccessView.userFiles}" var="file">
+    <h:outputText value="#{messages['view.fileAccess.null.warning']}" styleClass="bigText"
+                  rendered="#{empty fileAccessView.userFiles}"/>
+    <h:outputText value="#{messages['view.fileAccess.manage.information']}" styleClass="bigText"
+                  rendered="#{not empty fileAccessView.userFiles}"/>
+    <rich:dataTable id="info" value="#{fileAccessView.userFiles}" var="file"
+                    rendered="#{not empty fileAccessView.userFiles}">
         <f:facet name="header">
             <rich:columnGroup>
                 <rich:column>
@@ -44,19 +49,19 @@
         </rich:column>
         <rich:column>
             <a4j:commandButton value="Manage" action="#{fileAccessView.setRenderAll(file)}"
-                               render="selP selG selS selA"/>
+                               render="selP selGfStu selGfLec selS selA"/>
         </rich:column>
         <rich:column>
             <a4j:commandButton value="Manage" action="#{fileAccessView.setRenderSpecialization(file)}"
-                               render="selP selG selS selA" disabled="#{file.fileAccess.shareAll}"/>
+                               render="selP selGfStu selGfLec selS selA" disabled="#{file.fileAccess.shareAll}"/>
         </rich:column>
         <rich:column>
             <a4j:commandButton value="Manage" action="#{fileAccessView.setRenderGroup(file)}"
-                               render="selP selG selS selA" disabled="#{file.fileAccess.shareAll}"/>
+                               render="selP selGfStu selGfLec selS selA" disabled="#{file.fileAccess.shareAll}"/>
         </rich:column>
         <rich:column>
             <a4j:commandButton value="Manage" action="#{fileAccessView.setRenderUser(file)}"
-                               render="selP selG selS selA" disabled="#{file.fileAccess.shareAll}"/>
+                               render="selP selGfStu selGfLec selS selA" disabled="#{file.fileAccess.shareAll}"/>
         </rich:column>
     </rich:dataTable>
 </div>
@@ -101,8 +106,8 @@
         </div>
     </h:panelGroup>
 </h:panelGroup>
-<h:panelGroup id="selG">
-    <h:panelGroup rendered="#{fileAccessView.renderGroup}">
+<h:panelGroup id="selGfStu">
+    <h:panelGroup rendered="#{fileAccessView.renderGroupForStudent}">
         <div class="row-fluid">
             <div class="row-fluid">
                 <h:outputText value="#{messages['view.group.information']}"/>
@@ -118,6 +123,42 @@
                                itemLabel="#{group.name}"
                                itemValue="#{group}"/>
             </h:selectOneListbox>
+        </div>
+        <div class="row-fluid">
+            <a4j:commandButton value="Save" action="#{fileAccessView.saveGroup()}"/>
+        </div>
+    </h:panelGroup>
+</h:panelGroup>
+<h:panelGroup id="selGfLec">
+    <h:panelGroup rendered="#{fileAccessView.renderGroupForLecturer}">
+        <div class="row-fluid">
+            <div class="row-fluid">
+                <h:outputText value="#{messages['view.message.group.question']}" styleClass="bigText"/>
+            </div>
+            <div class="span6">
+                <h:outputLabel value="Specializations" for="specialization3"/>
+                <br/>
+                <h:selectOneListbox id="specialization3" value="#{fileAccessView.selectedSpecialization}"
+                                    converter="#{fileAccessView.specializationConverter}"
+                                    styleClass="sizeListBox">
+                    <f:selectItems value="#{fileAccessView.allSpecializations}" var="specialization"
+                                   itemValue="#{specialization}" itemLabel="#{specialization.name}"/>
+                    <a4j:ajax render="group22" event="change"
+                              listener="#{fileAccessView.clear}"/>
+                </h:selectOneListbox>
+            </div>
+            <div class="span6">
+                <h:outputLabel value="Groups" for="group22"/>
+                <br/>
+                <h:selectOneListbox id="group22" value="#{fileAccessView.selectedFile.fileAccess.group}"
+                                    converter="#{fileAccessView.groupConverter}"
+                                    styleClass="sizeListBox">
+                    <f:selectItem itemValue="${null}" itemLabel="Not Share"/>
+                    <f:selectItems value="#{fileAccessView.allGroups}" var="group"
+                                   itemLabel="#{group.name}"
+                                   itemValue="#{group}"/>
+                </h:selectOneListbox>
+            </div>
         </div>
         <div class="row-fluid">
             <a4j:commandButton value="Save" action="#{fileAccessView.saveGroup()}"/>

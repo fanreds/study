@@ -16,8 +16,13 @@
 
     </ui:define>
     <ui:define name="content">
+        <h:outputText value="#{messages['view.home.null.warning']}" styleClass="bigText"
+                      rendered="#{empty homeView.userFiles}"/>
+        <h:outputText value="#{messages['view.home.files.information']}" styleClass="bigText"
+                      rendered="#{not empty homeView.userFiles}"/>
         <h:form id="f1">
-            <rich:dataTable id="info" value="#{homeView.userFiles}" var="file">
+            <rich:dataTable id="info" value="#{homeView.userFiles}" var="file"
+                            rendered="#{not empty homeView.userFiles}">
                 <f:facet name="header">
                     <rich:columnGroup>
                         <rich:column>

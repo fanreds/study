@@ -80,8 +80,8 @@ body{
 }
 
 #stopka {
-    margin-top: 10px;
-    background-color: yellow;
+    color: white;
+    padding-top: 30px;
     clear: both;
     /*border: 1px solid black;*/
     text-align: right;
@@ -184,4 +184,7 @@ a {
 }
 .marginTop{
     margin-top: 20px;
+}
+.boldText{
+    font-weight: bold;
 }

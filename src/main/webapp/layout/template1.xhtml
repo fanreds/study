@@ -57,6 +57,10 @@
                     <pre></pre>
                     <h:button value="change password" outcome="/view/private/changePass"/>
                     <pre></pre>
+                    <h:button value="inbox" outcome="/view/private/inbox"/>
+                    <pre></pre>
+                    <h:button value="sentbox" outcome="/view/private/sentbox"/>
+                    <pre></pre>
                     <h:panelGroup rendered="#{not identity.loggedIn}">
                         <h:button value="login" outcome="/view/login"/>
                     </h:panelGroup>
@@ -74,7 +78,7 @@
                 </div>
             </div>
 
-            <!--<div id="stopka">Nowak Marcin</div>-->
+            <div id="stopka">Marcin Nowak</div>
         </div>
     </h:body>
 </f:view>

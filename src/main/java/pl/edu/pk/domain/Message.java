@@ -5,6 +5,7 @@ import org.hibernate.annotations.ForeignKey;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,8 +44,29 @@ public class Message implements Serializable {
     private Specialization specialization;
     @Column(name = "FOR_ALL", nullable = false)
     private boolean forAll;
+    @Column(name = "READ", nullable = false)
+    private boolean read;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JoinColumn(nullable = true, name = "SENTDATE")
+    private Date sentDate;
 
     public Message() {
+    }
+
+    public Date getSentDate() {
+        return sentDate;
+    }
+
+    public void setSentDate(Date sentDate) {
+        this.sentDate = sentDate;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 
     public Group getGroup() {

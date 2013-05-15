@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kleks
+  Date: 1/29/13
+  Time: 10:09 AM
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+                template="../../layout/template1.xhtml">
+
+    <ui:define name="menuleft">
+
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="f1">
+            <h:panelGroup id="inform">
+                <h:outputText value="#{messages['view.inbox.null.warning']}" styleClass="bigText"
+                              rendered="#{empty inboxView.messages}"/>
+                <h:outputText value="#{messages['view.inbox.information']}" styleClass="bigText"
+                              rendered="#{not empty inboxView.messages}"/>
+            </h:panelGroup>
+            <h:panelGroup id="idata">
+                <h:panelGroup id="idata2" rendered="#{not empty inboxView.messages}">
+                    <rich:dataTable id="info" value="#{inboxView.messages}" var="message"
+                                    rendered="#{not inboxView.renderMessage}">
+                        <f:facet name="header">
+                            <rich:columnGroup>
+                                <rich:column>
+                                    Subject
+                                </rich:column>
+                                <rich:column>
+                                    Sent date
+                                </rich:column>
+                                <rich:column>
+                                    Type
+                                </rich:column>
+                                <rich:column>
+                                    Sender
+                                </rich:column>
+                                <rich:column>
+                                </rich:column>
+                                <rich:column>
+                                </rich:column>
+                            </rich:columnGroup>
+                        </f:facet>
+                        <rich:column>
+                            <h:outputText value="#{message.subject}" rendered="#{message.read}"/>
+                            <h:outputText value="#{message.subject}" style="font-weight: bold"
+                                          rendered="#{not message.read}"/>
+                        </rich:column>
+                        <rich:column>
+                            <h:outputFormat value="{0, date, dd-MM-yyyy HH:mm:ss}">
+                                <f:param value="#{message.sentDate}"/>
+                            </h:outputFormat>
+                        </rich:column>
+                        <rich:column>
+                            <h:outputText value="#{messages['view.type.message.group']}"
+                                          rendered="#{inboxView.isGroupMessage(message)}"/>
+                            <h:outputText value="#{messages['view.type.message.private']}"
+                                          rendered="#{not inboxView.isGroupMessage(message)}"/>
+                        </rich:column>
+                        <rich:column>
+                            <h:outputText value="#{message.sender.name} #{message.sender.forename}"/>
+                        </rich:column>
+                        <rich:column>
+                            <a4j:commandButton value="Read" action="#{inboxView.read(message)}" render="Inf idata"/>
+                        </rich:column>
+                        <rich:column>
+                            <a4j:commandButton value="Delete" action="#{inboxView.delete(message)}" render="idata inform"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </h:panelGroup>
+            </h:panelGroup>
+
+            <h:panelGroup id="Inf">
+                <h:panelGroup rendered="#{not empty inboxView.message}">
+                    <div class="row-fluid">
+                        <h:outputLabel value="Subject: " for="subject"/>
+                        <h:outputText id="subject" value="#{inboxView.message.subject}" styleClass="boldText"/>
+                    </div>
+                    <div class="row-fluid">
+                        <h:outputLabel value="Sent Date: " for="sDate"/>
+                        <h:outputFormat id="sDate" value="{0, date, dd-MM-yyyy HH:mm:ss}" styleClass="boldText">
+                            <f:param value="#{inboxView.message.sentDate}"/>
+                        </h:outputFormat>
+                    </div>
+                    <div class="row-fluid">
+                        <h:outputLabel value="Sender: " for="sender"/>
+                        <h:outputText value="#{inboxView.message.sender.name} #{inboxView.message.sender.forename}"
+                                      id="sender" styleClass="boldText"/>
+                    </div>
+                    <div class="row-fluid">
+                        <h:outputLabel value="Content: " for="content"/>
+                        <h:outputText value="#{inboxView.message.subject}" id="content" styleClass="boldText"/>
+                    </div>
+                    <a4j:commandButton value="Back" action="#{inboxView.close}" render="Inf idata"/>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
