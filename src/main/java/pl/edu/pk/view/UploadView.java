@@ -54,8 +54,12 @@ public class UploadView implements Serializable {
         userDAO.get().update(currentUserManager.getUser());
     }
 
-    public String imageToBase64(byte[] image) throws IOException {
-        return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(image, 200, 200));
+    public String image(File file) throws IOException {
+        if (file.getFileName().contains("jpg") || file.getFileName().contains("png") || file.getFileName().contains("gif")) {
+            return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(file.getContent(), 200, 200));
+        } else {
+            return "/img/placeholder.png";
+        }
     }
 
     public File getFile() {

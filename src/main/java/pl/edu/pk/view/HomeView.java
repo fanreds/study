@@ -7,10 +7,11 @@ import pl.edu.pk.domain.File;
 import pl.edu.pk.domain.Student;
 
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.Serializable;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -30,8 +31,12 @@ public class HomeView implements Serializable {
     @Inject
     private ImageScaling imageScaling;
 
-    public String imageToBase64(byte[] image) throws IOException {
-        return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(image, 200, 200));
+    public String image(File file) throws IOException {
+        if (file.getFileName().contains("jpg") || file.getFileName().contains("png") || file.getFileName().contains("gif")) {
+            return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(file.getContent(), 200, 200));
+        } else {
+            return "/img/placeholder.png";
+        }
     }
 
     public List<File> getUserFiles() {
@@ -40,5 +45,17 @@ public class HomeView implements Serializable {
         } else {
             return userDAO.getSharedFilesForLecturer(currentUserManager.getUser());
         }
+    }
+
+    public void download(File file) throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletResponse response = (HttpServletResponse) context
+                .getExternalContext().getResponse();
+        response.reset();
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Length", String.valueOf(file.getContent().length));
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + file.getFileName() + "\"");
+        response.getOutputStream().write(file.getContent());
+        context.responseComplete();
     }
 }

@@ -8,13 +8,11 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:s="http://jboss.org/seam/faces"
                 template="../../layout/template1.xhtml">
     <!--<f:metadata>-->
-        <!--<s:viewAction action="#{uploadView.init}"/>-->
+    <!--<s:viewAction action="#{uploadView.init}"/>-->
     <!--</f:metadata>-->
 
 
@@ -23,24 +21,27 @@
     </ui:define>
     <ui:define name="content">
         <h:form id="f1">
-            <h:outputLabel for="upload" value="File Uploader"/>
-            <rich:fileUpload id="upload" acceptedTypes="jpg, gif, png, txt, doc, odt"
-                             ontyperejected="alert('Only JPG, GIF, PNG and TXT files are accepted');"
-                             fileUploadListener="#{uploadView.listener}" immediateUpload="true" listHeight="0"
-                             styleClass="avatarUpload">
-
-                <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
-            </rich:fileUpload>
             <div class="row-fluid">
-                <rich:dataTable id="info" value="#{uploadView.userFiles}" var="file">
+                <h:outputLabel for="upload" value="File Uploader"/>
+                <rich:fileUpload id="upload" acceptedTypes="jpg, gif, png, txt, doc, odt, pdf, zip, tar"
+                                 ontyperejected="alert('Only JPG, GIF, PNG and TXT files are accepted');"
+                                 fileUploadListener="#{uploadView.listener}" immediateUpload="true" listHeight="0"
+                                 styleClass="avatarUpload">
+
+                    <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
+                </rich:fileUpload>
+            </div>
+            <div class="row-fluid">
+                <rich:dataTable id="info" value="#{uploadView.userFiles}" var="file" styleClass="widthconst">
                     <h:column>
                         <h:outputText value="#{file.fileName}"/>
                     </h:column>
                     <h:column>
-                        <h:graphicImage value="#{uploadView.imageToBase64(file.content)}"/>
+                        <!--<h:graphicImage value="/img/placeholder.png"/>-->
+                        <h:graphicImage value="#{uploadView.image(file)}"/>
                     </h:column>
                     <h:column>
-                        <a4j:commandButton value="Delete" action="#{uploadView.delete(file)}"  render="info"/>
+                        <a4j:commandButton value="Delete" action="#{uploadView.delete(file)}" render="info"/>
                     </h:column>
                 </rich:dataTable>
             </div>

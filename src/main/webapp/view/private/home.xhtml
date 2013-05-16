@@ -22,7 +22,7 @@
                       rendered="#{not empty homeView.userFiles}"/>
         <h:form id="f1">
             <rich:dataTable id="info" value="#{homeView.userFiles}" var="file"
-                            rendered="#{not empty homeView.userFiles}">
+                            rendered="#{not empty homeView.userFiles}" styleClass="widthconst">
                 <f:facet name="header">
                     <rich:columnGroup>
                         <rich:column>
@@ -34,16 +34,22 @@
                         <rich:column>
                             Owner
                         </rich:column>
+                        <rich:column>
+                            Download
+                        </rich:column>
                     </rich:columnGroup>
                 </f:facet>
                 <rich:column>
                     <h:outputText value="#{file.fileName}"/>
                 </rich:column>
                 <rich:column>
-                    <h:graphicImage value="#{homeView.imageToBase64(file.content)}"/>
+                    <h:graphicImage value="#{homeView.image(file)}"/>
                 </rich:column>
                 <rich:column>
                     <h:outputText value="#{file.user.name} #{file.user.forename}"/>
+                </rich:column>
+                <rich:column>
+                    <h:commandButton value="Download" action="#{homeView.download(file)}"/>
                 </rich:column>
             </rich:dataTable>
 

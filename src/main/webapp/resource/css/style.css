@@ -31,6 +31,7 @@ body{
     margin-top: 10px;
     background-color: transparent;
     float: left;
+    width: 110px;
     /*border: 1px solid yellow;*/
 }
 
@@ -163,9 +164,10 @@ a {
     /*margin-right: 4px;*/
 }
 
-.avatarUpload .rf-fu {
-    border-style: none;
-    width: 70px;
+.rf-fu {
+    border: none !important;
+    width: 95px !important;
+    margin-bottom: 5px;
 }
 
 .avatarUpload .rf-fu-btn-cnt-clr {
@@ -187,4 +189,28 @@ a {
 }
 .boldText{
     font-weight: bold;
+}
+.menuButton{
+    background: url(../../img/menu2.gif) no-repeat 0px 0px !important;
+    color: white !important;
+    border-color: white !important;
+    padding-left: 30px;
+    text-align: left;
+    height: 30px;
+    width: 130px;
+    border-width: 0px !important;
+}
+.menuButton:hover{
+    background: url(../../img/menu.gif) no-repeat 0px 0px !important;
+    color: white !important;
+    border-color: white !important;
+    padding-left: 30px;
+    text-align: left;
+    font-weight: 500;
+    height: 30px;
+    width: 130px;
+    border-width: 0px !important;
+}
+.widthconst{
+    width: 400px;
 }

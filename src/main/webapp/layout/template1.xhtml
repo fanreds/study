@@ -43,31 +43,19 @@
 
                     <ui:insert name="menuleft"/>
 
-                    <!--<h:panelGroup rendered="#{identity.loggedIn}">-->
-                    <!--<h:outputText value="#{loginView.username}"/>-->
-                    <!--</h:panelGroup>-->
-                    <pre></pre>
-                    <h:button value="shared files" outcome="/view/private/home"/>
-                    <pre></pre>
-                    <h:button value="upload files" outcome="/view/private/upload"/>
-                    <pre></pre>
-                    <h:button value="share manager" outcome="/view/private/fileAccess"/>
-                    <pre></pre>
-                    <h:button value="send message" outcome="/view/private/message"/>
-                    <pre></pre>
-                    <h:button value="change password" outcome="/view/private/changePass"/>
-                    <pre></pre>
-                    <h:button value="inbox" outcome="/view/private/inbox"/>
-                    <pre></pre>
-                    <h:button value="sentbox" outcome="/view/private/sentbox"/>
-                    <pre></pre>
+                    <h:button value="shared files" outcome="/view/private/home" styleClass="menuButton" />
+                    <h:button value="upload files" outcome="/view/private/upload" styleClass="menuButton"/>
+                    <h:button value="share manager" outcome="/view/private/fileAccess" styleClass="menuButton"/>
+                    <h:button value="send message" outcome="/view/private/message" styleClass="menuButton"/>
+                    <h:button value="change password" outcome="/view/private/changePass" styleClass="menuButton"/>
+                    <h:button value="inbox" outcome="/view/private/inbox" styleClass="menuButton"/>
+                    <h:button value="sentbox" outcome="/view/private/sentbox" styleClass="menuButton"/>
                     <h:panelGroup rendered="#{not identity.loggedIn}">
-                        <h:button value="login" outcome="/view/login"/>
+                        <h:button value="login" outcome="/view/login" styleClass="menuButton"/>
                     </h:panelGroup>
-                    <pre></pre>
                     <h:panelGroup rendered="#{identity.loggedIn}">
                         <h:form>
-                            <h:commandButton value="logout" action="#{loginView.logout}"/>
+                            <h:commandButton value="logout" action="#{loginView.logout}" styleClass="menuButton"/>
                         </h:form>
                     </h:panelGroup>
                 </div>
