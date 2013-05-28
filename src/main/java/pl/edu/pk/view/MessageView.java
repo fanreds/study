@@ -5,6 +5,7 @@ import pl.edu.pk.DAO.MessageDAO;
 import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.*;
+import pl.edu.pk.security.SecurityGenerator;
 import pl.edu.pk.web.BundleKeys;
 
 import javax.faces.bean.ViewScoped;
@@ -197,7 +198,6 @@ public class MessageView implements Serializable {
         this.message = message;
     }
 
-
     @SuppressWarnings("SuspiciousMethodCalls")
     public List<Lecturer> getAllLecturers() {
         allLecturers = userDAO.getAllLecturers();
@@ -279,9 +279,14 @@ public class MessageView implements Serializable {
     }
 
     public void save() {
-        if (!getMessage().isForAll() && getMessage().getSpecialization()==null && getMessage().getGroup()==null && getMessage().getRecipient()==null){
+        if (!getMessage().isForAll() && getMessage().getSpecialization() == null && getMessage().getGroup() == null && getMessage().getRecipient() == null) {
             messages.error(BundleKeys.MESSAGE_RECIPIENT_NOT_SELECTED);
             return;
+        }
+        if (getMessage().getRecipient() != null) {
+            SecurityGenerator securityGenerator = new SecurityGenerator();
+            securityGenerator.initCipherRSA();
+            getMessage().setContent(securityGenerator.getEncoded(getMessage().getContentString().getBytes(),getMessage().getRecipient().getPublicKey()));
         }
         getMessage().setSender(currentUserManager.getUser());
         getMessage().setSentDate(new Date());

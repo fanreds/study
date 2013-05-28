@@ -95,7 +95,7 @@
                     </div>
                     <div class="row-fluid">
                         <h:outputLabel value="Content: " for="content"/>
-                        <h:outputText value="#{inboxView.message.subject}" id="content" styleClass="boldText"/>
+                        <h:outputText value="#{inboxView.message.contentString}" id="content" styleClass="boldText"/>
                     </div>
                     <a4j:commandButton value="Back" action="#{inboxView.close}" render="Inf idata"/>
                 </h:panelGroup>

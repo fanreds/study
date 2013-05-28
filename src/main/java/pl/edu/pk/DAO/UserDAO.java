@@ -95,6 +95,7 @@ public class UserDAO implements Serializable {
                 userEvent.fire((User) o);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;

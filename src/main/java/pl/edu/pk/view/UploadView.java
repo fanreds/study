@@ -7,6 +7,7 @@ import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.File;
 import pl.edu.pk.domain.FileAccess;
+import pl.edu.pk.security.SecurityGenerator;
 
 import javax.enterprise.inject.Instance;
 import javax.faces.bean.ViewScoped;
@@ -14,7 +15,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +27,6 @@ import java.util.List;
 @ViewScoped
 public class UploadView implements Serializable {
     private static final String BASE64_PREFIX = "data:image/gif;base64,";
-    private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
     @SuppressWarnings("UnusedDeclaration")
     @Inject
     private CurrentUserManager currentUserManager;
@@ -38,15 +37,21 @@ public class UploadView implements Serializable {
     @Inject
     private ImageScaling imageScaling;
     private File file;
+    private SecurityGenerator securityGenerator;
+
+    public UploadView() {
+        securityGenerator = new SecurityGenerator();
+    }
 
     public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
-        file.getData();
+        byte[] fileRaw = file.getData();
 
         setFile(new File());
         getFile().setFileName(file.getName());
-        getFile().setContent(file.getData());
         getFile().setUser(currentUserManager.getUser());
+
+        getFile().setContent(encodeFile(fileRaw));
         FileAccess fileAccess = new FileAccess();
         fileAccess.setShareAll(false);
         getFile().setFileAccess(fileAccess);
@@ -54,9 +59,25 @@ public class UploadView implements Serializable {
         userDAO.get().update(currentUserManager.getUser());
     }
 
+    private byte[] encodeFile(byte[] inputFile) {
+        securityGenerator.initDES();
+        securityGenerator.initCipherDES();
+        getFile().setSecretKey(securityGenerator.generateSecretKey());
+        byte[] fileEncoded = securityGenerator.getEncodedDES(inputFile, getFile().getSecretKey());
+        getFile().setIv(securityGenerator.getIV());
+        return fileEncoded;
+    }
+
+    private byte[] decodeFile(File inputFile) {
+        securityGenerator.initDES();
+        securityGenerator.initCipherDES();
+        byte[] fileDecoded = securityGenerator.getDecodedDES(inputFile.getContent(), inputFile.getSecretKey(), inputFile.getIv());
+        return fileDecoded;
+    }
+
     public String image(File file) throws IOException {
         if (file.getFileName().contains("jpg") || file.getFileName().contains("png") || file.getFileName().contains("gif")) {
-            return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(file.getContent(), 200, 200));
+            return BASE64_PREFIX + Base64.encodeBase64String(imageScaling.scale(decodeFile(file), 200, 200));
         } else {
             return "/img/placeholder.png";
         }

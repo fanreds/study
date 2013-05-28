@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kleks
+  Date: 1/29/13
+  Time: 10:09 AM
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../layout/template1.xhtml">
+
+
+    <ui:define name="menuleft">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup rendered="#{identity.loggedIn}">
+            <script type="text/javascript">
+                location = '#{request.contextPath}/view/private/home.jsf'
+            </script>
+        </h:panelGroup>
+
+       <!--<h:outputText value="#{securityTester.PBETest}" />      <br/>-->
+       <!--<h:outputText value="zakodowany #{securityGenerator.kk}" />-->
+
+       <h:outputText value="#{securityTester.test()}" />      <br/>
+       <h:outputText value="#{securityTester.CipherTest()}" />      <br/>
+       <!--<h:outputText value="#{securityGenerator.encrypted}" />      <br/>-->
+       <!--<h:outputText value="#{securityGenerator.decrypted}" />      <br/>-->
+
+
+    </ui:define>
+
+</ui:composition>

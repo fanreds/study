@@ -47,7 +47,12 @@
             <version>1.0.1.Final</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.gnu</groupId>
+            <artifactId>gnu-crypto</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -150,7 +155,7 @@
                     <artifactId>${project.artifactId}</artifactId>
                     <force>true</force>
                     <ignoreMissingDeployment>true</ignoreMissingDeployment>
-                    <!--<hostname>192.168.1.12</hostname>-->
+                    <hostname>192.168.1.12</hostname>
                     <!--<domain>-->
                         <!--<server-groups>-->
                             <!--<server-group>main-server-group</server-group>-->

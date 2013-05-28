@@ -1,6 +1,7 @@
 package pl.edu.pk.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,12 @@ public abstract class User implements Serializable {
 //    @ForeignKey(name = "FK___USER___FILES")
 //    @JoinColumn(name = "USER_ID", nullable = true)
     private List<File> files;
+    @NotNull
+    @Column(name = "PRIVATEKEY", nullable = false)
+    private byte[] privateKey;
+    @NotNull
+    @Column(name = "PUBLICKEY", nullable = false)
+    private byte[] publicKey;
 
     public User() {
     }
@@ -44,6 +51,22 @@ public abstract class User implements Serializable {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public byte[] getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(byte[] privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public byte[] getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(byte[] publicKey) {
+        this.publicKey = publicKey;
     }
 
     public List<File> getFiles() {

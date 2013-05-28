@@ -34,5 +34,8 @@
             <!--<module name="org.jboss.jaxbintros"/>-->
             <!--<module name="com.sun.xml.bind" services="import"/>-->
         </dependencies>
+        <resources>
+            <resource-root path="WEB-INF/lib/gnu-crypto-2.0.1.jar" use-physical-code-source="true"/>
+        </resources>
     </deployment>
 </jboss-deployment-structure>

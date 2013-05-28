@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
 @Table(name = "FILE")
 public class File {
     @NotNull
-    @Size(min = 1, max = 1000000)
-    @Column(name = "FILE_CONTENT", length = 1000000)
+    @Size(min = 1, max = 10000000)    //76MB
+    @Column(name = "FILE_CONTENT", length = 10000000)
     private byte[] content;
     @Length(min = 2, max = 255)
     @Column(name = "FILE_NAME", length = 255, nullable = false)
@@ -34,8 +34,30 @@ public class File {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+    @NotNull
+    @Column(name = "IV", nullable = false)
+    private byte[] iv;
+    @NotNull
+    @Column(name = "SECRETKEY", nullable = false)
+    private byte[] secretKey;
 
     public File() {
+    }
+
+    public byte[] getIv() {
+        return iv;
+    }
+
+    public void setIv(byte[] iv) {
+        this.iv = iv;
+    }
+
+    public byte[] getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(byte[] secretKey) {
+        this.secretKey = secretKey;
     }
 
     public User getUser() {

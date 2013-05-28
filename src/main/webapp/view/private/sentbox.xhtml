@@ -86,7 +86,7 @@
                     </div>
                     <div class="row-fluid">
                         <h:outputLabel value="Content: " for="content"/>
-                        <h:outputText value="#{sentboxView.message.subject}" id="content" styleClass="boldText"/>
+                        <h:outputText value="#{sentboxView.message.contentString}" id="content" styleClass="boldText"/>
                     </div>
                     <a4j:commandButton value="Back" action="#{sentboxView.close}" render="Inf idata"/>
                 </h:panelGroup>

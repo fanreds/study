@@ -197,7 +197,7 @@
                 </div>
                 <div>
                     <h:outputLabel value="#{messages['view.message.content']}" for="content"/>
-                    <h:inputTextarea id="content" value="#{messageView.message.content}" rows="5" cols="75"/>
+                    <h:inputTextarea id="content" value="#{messageView.message.contentString}" rows="5" cols="75"/>
                 </div>
                 <div>
                     <a4j:commandButton value="#{messages['view.message.button']}" action="#{messageView.save}"

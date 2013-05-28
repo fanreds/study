@@ -35,7 +35,7 @@ public class Message implements Serializable {
     @SuppressWarnings("JpaAttributeTypeInspection")
     private User sender;
     @Column(name = "CONTENT")
-    private String content;
+    private byte[] content;
     @OneToOne(optional = true)
     @JoinColumn(name = "GROUP_ID", nullable = true)
     private Group group;
@@ -49,6 +49,7 @@ public class Message implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @JoinColumn(nullable = true, name = "SENTDATE")
     private Date sentDate;
+    transient private String contentString;
 
     public Message() {
     }
@@ -125,11 +126,19 @@ public class Message implements Serializable {
         this.sender = sender;
     }
 
-    public String getContent() {
+    public String getContentString() {
+        return contentString;
+    }
+
+    public void setContentString(String contentString) {
+        this.contentString = contentString;
+    }
+
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 }

@@ -6,6 +6,7 @@ import pl.edu.pk.DAO.UserDAO;
 import pl.edu.pk.business.CurrentUserManager;
 import pl.edu.pk.domain.Message;
 import pl.edu.pk.domain.MessageDeleted;
+import pl.edu.pk.security.SecurityGenerator;
 
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -37,6 +38,13 @@ public class InboxView implements Serializable {
     public List<Message> getMessages() {
         if (messageList == null) {
             messageList = messageDAO.getInboxMessages(currentUserManager.getUser());
+            SecurityGenerator securityGenerator = new SecurityGenerator();
+            securityGenerator.initCipherRSA();
+            for (Message message1 : messageList) {
+                if (message1.getRecipient() != null) {
+                    message1.setContentString(new String(securityGenerator.getDecoded(message1.getContent(), currentUserManager.getUser().getPrivateKey())));
+                }
+            }
         }
         return messageList;
     }
