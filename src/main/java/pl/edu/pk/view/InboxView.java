@@ -43,6 +43,8 @@ public class InboxView implements Serializable {
             for (Message message1 : messageList) {
                 if (message1.getRecipient() != null) {
                     message1.setContentString(new String(securityGenerator.getDecoded(message1.getContent(), currentUserManager.getUser().getPrivateKey())));
+                }     else {
+                    message1.setContentString(new String(message1.getContent()));
                 }
             }
         }

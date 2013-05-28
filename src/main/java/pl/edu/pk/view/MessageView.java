@@ -287,6 +287,8 @@ public class MessageView implements Serializable {
             SecurityGenerator securityGenerator = new SecurityGenerator();
             securityGenerator.initCipherRSA();
             getMessage().setContent(securityGenerator.getEncoded(getMessage().getContentString().getBytes(),getMessage().getRecipient().getPublicKey()));
+        }else {
+            getMessage().setContent(getMessage().getContentString().getBytes());
         }
         getMessage().setSender(currentUserManager.getUser());
         getMessage().setSentDate(new Date());
