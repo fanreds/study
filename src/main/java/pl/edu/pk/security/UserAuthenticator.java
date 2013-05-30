@@ -1,5 +1,6 @@
 package pl.edu.pk.security;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.international.status.builder.BundleKey;
 import org.jboss.seam.security.BaseAuthenticator;
@@ -38,7 +39,7 @@ public class UserAuthenticator extends BaseAuthenticator {
 
         String password = ((PasswordCredential) credentials.getCredential()).getValue();
 
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.getPassword().equals(DigestUtils.sha256Hex(password))) {
             setStatus(AuthenticationStatus.SUCCESS);
             setUser(new SimpleUser(user.getUsername()));
             currentUserManager.setUser(user);

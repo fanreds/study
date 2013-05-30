@@ -15,6 +15,11 @@
             <var>messages</var>
         </resource-bundle>
 
+        <resource-bundle>
+            <base-name>validation</base-name>
+            <var>validation</var>
+        </resource-bundle>
+
     </application>
 
     <navigation-rule>
