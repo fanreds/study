@@ -24,7 +24,7 @@ public class MySingleton {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
 
         SecurityGenerator securityGenerator = new SecurityGenerator();
@@ -56,23 +56,23 @@ public class MySingleton {
 
         final Address address2 = new Address("Polna", "Gorlice", "15-333");
         calendar.set(1972, 11, 22);
-        final User lecturer1 = new Lecturer("Sochal", "Janusz", "sochal", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer1 = new Lecturer("Sochal", "Janusz", "sochal", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1979, 4, 4);
-        final User lecturer2 = new Lecturer("Misznel", "Zbigniew", "misznel", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer2 = new Lecturer("Misznel", "Zbigniew", "misznel", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1971, 1, 12);
-        final User lecturer3 = new Lecturer("Nawrot", "Lucjan", "nawrot", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer3 = new Lecturer("Nawrot", "Lucjan", "nawrot", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1956, 2, 13);
-        final User lecturer4 = new Lecturer("Soszyński", "Stanisław", "soszynski", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer4 = new Lecturer("Soszyński", "Stanisław", "soszynski", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1963, 11, 7);
-        final User lecturer5 = new Lecturer("Krupski", "Adam", "krupski", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer5 = new Lecturer("Krupski", "Adam", "krupski", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1970, 10, 12);
-        final User lecturer6 = new Lecturer("Lewandowski", "Ryszard", "lewandowski", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer6 = new Lecturer("Lewandowski", "Ryszard", "lewandowski", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1971, 1, 12);
-        final User lecturer7 = new Lecturer("Kołodziej", "Piotr", "kolodziej", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer7 = new Lecturer("Kołodziej", "Piotr", "kolodziej", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1974, 6, 17);
-        final User lecturer8 = new Lecturer("Wrona", "Stefan", "wrona", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer8 = new Lecturer("Wrona", "Stefan", "wrona", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
         calendar.set(1975, 12, 18);
-        final User lecturer9 = new Lecturer("Gajda", "Tomasz", "gajda", DigestUtils.sha256Hex("ppp"), calendar.getTime(), address2, academy);
+        final User lecturer9 = new Lecturer("Gajda", "Tomasz", "gajda", DigestUtils.sha256Hex("changeit"), calendar.getTime(), address2, academy);
 
 
         securityGenerator.initRSA();
@@ -117,47 +117,47 @@ public class MySingleton {
 
         Address address1 = new Address("Lesna", "Tarnów", "13-333");
         calendar.set(1984, 2, 12);
-        final User studentInf1 = new Student("Bugaj", "Paweł", "bugaj", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf1 = new Student("Bugaj", "Paweł", "bugaj", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1984, 2, 22);
-        final User studentInf2 = new Student("Robak", "Michał", "robak", DigestUtils.sha256Hex("ppp"), groupINF2, address1, calendar.getTime());
+        final User studentInf2 = new Student("Robak", "Michał", "robak", DigestUtils.sha256Hex("changeit"), groupINF2, address1, calendar.getTime());
         calendar.set(1985, 5, 22);
-        final User studentInf3 = new Student("Siedlecki", "Piotr", "siedlecki", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf3 = new Student("Siedlecki", "Piotr", "siedlecki", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1987, 8, 16);
-        final User studentInf4 = new Student("Jackowski", "Jacek", "jackowski", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf4 = new Student("Jackowski", "Jacek", "jackowski", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1987, 3, 19);
-        final User studentInf5 = new Student("Dychtoń", "Natalia", "dychton", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf5 = new Student("Dychtoń", "Natalia", "dychton", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1987, 2, 12);
-        final User studentInf6 = new Student("Sowa", "Ewa", "sowa", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf6 = new Student("Sowa", "Ewa", "sowa", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1987, 7, 31);
-        final User studentInf7 = new Student("Masło", "Tomasz", "maslo", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf7 = new Student("Masło", "Tomasz", "maslo", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1987, 8, 5);
-        final User studentInf8 = new Student("Stach", "Edward", "stach", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf8 = new Student("Stach", "Edward", "stach", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1987, 12, 24);
-        final User studentInf9 = new Student("Jarosz", "Stefan", "jarosz", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf9 = new Student("Jarosz", "Stefan", "jarosz", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
         calendar.set(1985, 8, 12);
-        final User studentInf10 = new Student("Miklas", "Marian", "miklas", DigestUtils.sha256Hex("ppp"), groupINF1, address1, calendar.getTime());
+        final User studentInf10 = new Student("Miklas", "Marian", "miklas", DigestUtils.sha256Hex("changeit"), groupINF1, address1, calendar.getTime());
 
         address1 = new Address("Przewoska", "Żabno", "13-555");
         calendar.set(1990, 12, 18);
-        final User studentInf11 = new Student("Marszałek", "Zofia", "marszalek", DigestUtils.sha256Hex("ppp"), groupMAT1, address1, calendar.getTime());
+        final User studentInf11 = new Student("Marszałek", "Zofia", "marszalek", DigestUtils.sha256Hex("changeit"), groupMAT1, address1, calendar.getTime());
         calendar.set(1987, 3, 3);
-        final User studentInf12 = new Student("Kmiotek", "Joanna", "kmiotek", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf12 = new Student("Kmiotek", "Joanna", "kmiotek", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1992, 10, 29);
-        final User studentInf13 = new Student("Porosło", "Kamila", "poroslo", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf13 = new Student("Porosło", "Kamila", "poroslo", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1980, 12, 24);
-        final User studentInf14 = new Student("Bober", "Leszek", "bober", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf14 = new Student("Bober", "Leszek", "bober", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1989, 6, 19);
-        final User studentInf15 = new Student("Nasiadka", "Kamil", "nasiadka", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf15 = new Student("Nasiadka", "Kamil", "nasiadka", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1979, 1, 23);
-        final User studentInf16 = new Student("Sypek", "Klaudia", "sypek", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf16 = new Student("Sypek", "Klaudia", "sypek", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1988, 8, 27);
-        final User studentInf17 = new Student("Kowalska", "Agnieszka", "kowalska", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf17 = new Student("Kowalska", "Agnieszka", "kowalska", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1987, 2, 12);
-        final User studentInf18 = new Student("Rybak", "Anna", "rybak", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf18 = new Student("Rybak", "Anna", "rybak", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1986, 2, 8);
-        final User studentInf19 = new Student("Kowal", "Jadwiga", "kowal", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf19 = new Student("Kowal", "Jadwiga", "kowal", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1989, 10, 15);
-        final User studentInf20 = new Student("Masztalski", "Aleksander", "masztalski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentInf20 = new Student("Masztalski", "Aleksander", "masztalski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
 
         securityGenerator.generateKeyPairDSA();
         studentInf1.setPrivateKey(securityGenerator.getPrivateKey());
@@ -222,47 +222,47 @@ public class MySingleton {
 
         address1 = new Address("Graniczna", "Gorlice", "13-444");
         calendar.set(1987, 4, 13);
-        final User studentMat1 = new Student("Gomba", "Paweł", "gomba", DigestUtils.sha256Hex("ppp"), groupMAT1, address1, calendar.getTime());
+        final User studentMat1 = new Student("Gomba", "Paweł", "gomba", DigestUtils.sha256Hex("changeit"), groupMAT1, address1, calendar.getTime());
         calendar.set(1986, 5, 2);
-        final User studentMat2 = new Student("Winiarski", "Michał", "winiarski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat2 = new Student("Winiarski", "Michał", "winiarski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1987, 6, 25);
-        final User studentMat3 = new Student("Misztal", "Szymon", "misztal", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat3 = new Student("Misztal", "Szymon", "misztal", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1987, 6, 25);
-        final User studentMat4 = new Student("Dudczyk", "Sylwia", "dudczyk", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat4 = new Student("Dudczyk", "Sylwia", "dudczyk", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1984, 7, 20);
-        final User studentMat5 = new Student("Nowak", "Eugeniusz", "nowak", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat5 = new Student("Nowak", "Eugeniusz", "nowak", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1991, 11, 25);
-        final User studentMat6 = new Student("Warcholski", "Zenon", "Warcholski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat6 = new Student("Warcholski", "Zenon", "Warcholski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1987, 3, 17);
-        final User studentMat7 = new Student("Szmigiel", "Szymon", "szmigiel", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat7 = new Student("Szmigiel", "Szymon", "szmigiel", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1993, 9, 7);
-        final User studentMat8 = new Student("Bogusz", "Maria", "bogusz", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat8 = new Student("Bogusz", "Maria", "bogusz", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1992, 1, 1);
-        final User studentMat9 = new Student("Kukuła", "Jan", "kukula", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat9 = new Student("Kukuła", "Jan", "kukula", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1990, 9, 11);
-        final User studentMat10 = new Student("Lipski", "Marcin", "lipski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat10 = new Student("Lipski", "Marcin", "lipski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
 
         address1 = new Address("Krakowska", "Dębica", "13-232");
         calendar.set(1991, 11, 8);
-        final User studentMat11 = new Student("Sowiński", "Maciej", "sowinski", DigestUtils.sha256Hex("ppp"), groupMAT1, address1, calendar.getTime());
+        final User studentMat11 = new Student("Sowiński", "Maciej", "sowinski", DigestUtils.sha256Hex("changeit"), groupMAT1, address1, calendar.getTime());
         calendar.set(1992, 3, 27);
-        final User studentMat12 = new Student("Wojciechowska", "Aneta", "wojciechowska", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat12 = new Student("Wojciechowska", "Aneta", "wojciechowska", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1990, 12, 18);
-        final User studentMat13 = new Student("Okońska", "Urszula", "okonska", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat13 = new Student("Okońska", "Urszula", "okonska", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1987, 11, 14);
-        final User studentMat14 = new Student("Maliniak", "Stanisław", "maliniak", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat14 = new Student("Maliniak", "Stanisław", "maliniak", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1989, 3, 17);
-        final User studentMat15 = new Student("Kowalik", "Cezary", "kowalik", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat15 = new Student("Kowalik", "Cezary", "kowalik", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1979, 10, 3);
-        final User studentMat16 = new Student("Bogdański", "Dariusz", "bogdański", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat16 = new Student("Bogdański", "Dariusz", "bogdański", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1988, 9, 7);
-        final User studentMat17 = new Student("Hajdo", "Patryk", "hajdo", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat17 = new Student("Hajdo", "Patryk", "hajdo", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1981, 3, 12);
-        final User studentMat18 = new Student("Widawski", "Filip", "widawski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat18 = new Student("Widawski", "Filip", "widawski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1981, 4, 16);
-        final User studentMat19 = new Student("Tymański", "Jakub", "tymanski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat19 = new Student("Tymański", "Jakub", "tymanski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1989, 11, 4);
-        final User studentMat20 = new Student("Oliwa", "Wojciech", "oliwa", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentMat20 = new Student("Oliwa", "Wojciech", "oliwa", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
 
         securityGenerator.generateKeyPairDSA();
         studentMat1.setPrivateKey(securityGenerator.getPrivateKey());
@@ -328,25 +328,25 @@ public class MySingleton {
 
         address1 = new Address("Chopina", "Dąbrowa Tarnowska", "13-343");
         calendar.set(1990, 1, 8);
-        final User studentEco1 = new Student("Jaroszek", "Wacław", "jaroszek", DigestUtils.sha256Hex("ppp"), groupMAT1, address1, calendar.getTime());
+        final User studentEco1 = new Student("Jaroszek", "Wacław", "jaroszek", DigestUtils.sha256Hex("changeit"), groupMAT1, address1, calendar.getTime());
         calendar.set(1991, 8, 17);
-        final User studentEco2 = new Student("Czarka", "Halina", "czarka", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco2 = new Student("Czarka", "Halina", "czarka", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1989, 2, 18);
-        final User studentEco3 = new Student("Kołodziej", "Karolina", "kolodziej2", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco3 = new Student("Kołodziej", "Karolina", "kolodziej2", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1989, 11, 13);
-        final User studentEco4 = new Student("Pawłowski", "Damian", "pawlowski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco4 = new Student("Pawłowski", "Damian", "pawlowski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1987, 5, 12);
-        final User studentEco5 = new Student("Kumięga", "Rafał", "kumiega", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco5 = new Student("Kumięga", "Rafał", "kumiega", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1980, 19, 23);
-        final User studentEco6 = new Student("Nytko", "Piotr", "nytko", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco6 = new Student("Nytko", "Piotr", "nytko", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1992, 7, 17);
-        final User studentEco7 = new Student("Furmański", "Paweł", "furmanski", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco7 = new Student("Furmański", "Paweł", "furmanski", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1984, 8, 19);
-        final User studentEco8 = new Student("Kiełbasa", "Mariola", "kielbasa", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco8 = new Student("Kiełbasa", "Mariola", "kielbasa", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1986, 5, 10);
-        final User studentEco9 = new Student("Rymczak", "Ewelina", "rymczak", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco9 = new Student("Rymczak", "Ewelina", "rymczak", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
         calendar.set(1991, 12, 9);
-        final User studentEco10 = new Student("Paw", "Zuzanna", "paw", DigestUtils.sha256Hex("ppp"), groupMAT2, address1, calendar.getTime());
+        final User studentEco10 = new Student("Paw", "Zuzanna", "paw", DigestUtils.sha256Hex("changeit"), groupMAT2, address1, calendar.getTime());
 
         securityGenerator.generateKeyPairDSA();
         studentEco1.setPrivateKey(securityGenerator.getPrivateKey());

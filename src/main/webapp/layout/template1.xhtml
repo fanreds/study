@@ -29,6 +29,7 @@
     </h:head>
 
     <h:body>
+        <rich:notifyMessages globalOnly="true" nonblocking="true" nonblockingOpacity="0.6" onclick="$(this).hide()"/>
         <div id="kontener">
             <div id="naglowek"></div>
             <div id="middle">
@@ -43,20 +44,28 @@
 
                     <ui:insert name="menuleft"/>
 
-                    <h:button value="shared files" outcome="/view/private/home" styleClass="menuButton" />
-                    <h:button value="upload files" outcome="/view/private/upload" styleClass="menuButton"/>
-                    <h:button value="share manager" outcome="/view/private/fileAccess" styleClass="menuButton"/>
-                    <h:button value="send message" outcome="/view/private/message" styleClass="menuButton"/>
-                    <h:button value="change password" outcome="/view/private/changePass" styleClass="menuButton"/>
-                    <h:button value="inbox" outcome="/view/private/inbox" styleClass="menuButton"/>
-                    <h:button value="sentbox" outcome="/view/private/sentbox" styleClass="menuButton"/>
-                    <h:button value="test" outcome="/view/test" styleClass="menuButton"/>
+                    <h:button value="#{messages['view.menu.shared.files']}" outcome="/view/private/home"
+                              styleClass="menuButton"/>
+                    <h:button value="#{messages['view.menu.upload.files']}" outcome="/view/private/upload"
+                              styleClass="menuButton"/>
+                    <h:button value="#{messages['view.menu.share.manager']}" outcome="/view/private/fileAccess"
+                              styleClass="menuButton"/>
+                    <h:button value="#{messages['view.menu.send.message']}" outcome="/view/private/message"
+                              styleClass="menuButton"/>
+                    <h:button value="#{messages['view.menu.inbox']}" outcome="/view/private/inbox"
+                              styleClass="menuButton"/>
+                    <h:button value="#{messages['view.menu.sentbox']}" outcome="/view/private/sentbox"
+                              styleClass="menuButton"/>
+                    <!--<h:button value="test" outcome="/view/test" styleClass="menuButton"/>-->
                     <h:panelGroup rendered="#{not identity.loggedIn}">
-                        <h:button value="login" outcome="/view/login" styleClass="menuButton"/>
+                        <h:button value="#{messages['view.menu.login']}" outcome="/view/login" styleClass="menuButton"/>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{identity.loggedIn}">
+                        <h:button value="#{messages['view.menu.change.password']}" outcome="/view/private/changePass"
+                                  styleClass="menuButton"/>
                         <h:form>
-                            <h:commandButton value="logout" action="#{loginView.logout}" styleClass="menuButton"/>
+                            <h:commandButton value="#{messages['view.menu.logout']}" action="#{loginView.logout}"
+                                             styleClass="menuButton"/>
                         </h:form>
                     </h:panelGroup>
                 </div>

@@ -29,7 +29,11 @@
        <h:outputText value="#{securityTester.CipherTest()}" />      <br/>
        <!--<h:outputText value="#{securityGenerator.encrypted}" />      <br/>-->
        <!--<h:outputText value="#{securityGenerator.decrypted}" />      <br/>-->
-
+                        <h:dataTable var="s" value="#{messageView.allLecturers}">
+                            <h:column>
+                                #{s.username}
+                            </h:column>
+                        </h:dataTable>
 
     </ui:define>
 

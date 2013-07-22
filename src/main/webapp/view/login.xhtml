@@ -25,15 +25,15 @@
         <h:form>
             <div class="span12 marginTop">
                 <div class="row-fluid">
-                    <h:outputLabel for="login" value="Login:"/>
+                    <h:outputLabel for="login" value="#{messages['view.login.label.login']}"/>
                     <h:inputText id="login" value="#{credentials.username}"/>
                 </div>
                 <div class="row-fluid">
-                    <h:outputLabel for="password" value="Password:"/>
+                    <h:outputLabel for="password" value="#{messages['view.login.label.password']}"/>
                     <h:inputSecret value="#{credentials.password}" id="password"/>
                 </div>
                 <div class="row-fluid">
-                    <h:commandButton action="#{identity.login}" value="Login"/>
+                    <h:commandButton action="#{identity.login}" value="#{messages['view.login.button.login']}"/>
                 </div>
             </div>
         </h:form>

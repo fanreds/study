@@ -23,8 +23,9 @@
         <h:form id="f1">
             <div class="row-fluid">
                 <h:outputLabel for="upload" value="File Uploader"/>
-                <rich:fileUpload id="upload" acceptedTypes="jpg, gif, png, txt, doc, odt, pdf, zip, tar"
-                                 ontyperejected="alert('Only JPG, GIF, PNG and TXT files are accepted');"
+                <rich:fileUpload id="upload" acceptedTypes="jpg, gif, png, txt, doc, odt, pdf, zip, tar, avi, mp3, cpp, xml
+                , docx, sql"
+                                 ontyperejected="alert('This file is not accepted');"
                                  fileUploadListener="#{uploadView.listener}" immediateUpload="true" listHeight="0"
                                  styleClass="avatarUpload">
 

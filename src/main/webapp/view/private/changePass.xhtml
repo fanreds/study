@@ -25,8 +25,8 @@
                 <div class="row-fluid">
                     <h:outputLabel value="New password:" for="newP"/>
                     <h:inputText id="newP" value="#{changePassView.newPass}">
-                        <f:validateLength minimum="6"/>
-                        <f:validateRegex pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?!.*\\s)(?=.*[@#$%/-_.]).{10,23}"/>
+                        <f:validateLength minimum="16"/>
+                        <f:validateRegex pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?!.*\\s)(?=.*[@#$%/-_.]).{16,30}"/>
                         <!--<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)(?=.*[@#$%_.!]).{6,20})"/>-->
 
                     </h:inputText>
@@ -34,7 +34,7 @@
                 <div class="row-fluid">
                     <h:outputLabel value="Retype new password:" for="rP"/>
                     <h:inputText id="rP" value="#{changePassView.repeatPass}">
-                        <f:validateLength minimum="10"/>
+                        <f:validateLength minimum="16"/>
                         <a4j:ajax event="change"/>
                     </h:inputText>
                 </div>

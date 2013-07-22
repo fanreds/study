@@ -18,10 +18,14 @@ import pl.edu.pk.security.annotations.Authenticated;
 @ViewConfig
 public interface PagesConfig {
 
-    static enum Pages{
+    static enum Pages {
+        @AccessDenied @RestrictAtPhase(PhaseIdType.RESTORE_VIEW) @ViewPattern("/img/*")
+        IMAGES,
+        @AccessDenied @RestrictAtPhase(PhaseIdType.RESTORE_VIEW) @ViewPattern("/resource/*")
+        RESOURCES,
         @AccessDenied @RestrictAtPhase(PhaseIdType.RESTORE_VIEW) @ViewPattern("/layout/*")
         LAYOUTS,
-        @Authenticated  @ViewPattern("/view/private/*") @LoginView("/view/login.xhtml") @FacesRedirect @RestrictAtPhase(
+        @Authenticated @ViewPattern("/view/private/*") @LoginView("/view/login.xhtml") @FacesRedirect @RestrictAtPhase(
                 {PhaseIdType.RESTORE_VIEW, PhaseIdType.INVOKE_APPLICATION, PhaseIdType.PROCESS_VALIDATIONS, PhaseIdType.UPDATE_MODEL_VALUES,
                         PhaseIdType.APPLY_REQUEST_VALUES, PhaseIdType.RENDER_RESPONSE})
         USER
