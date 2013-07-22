@@ -19,11 +19,11 @@
         <h:form id="f1">
             <div class="span12 marginTop">
                 <div class="row-fluid">
-                    <h:outputLabel value="Old password:" for="oldP"/>
+                    <h:outputLabel value="#{messages['view.changePass.old']}" for="oldP"/>
                     <h:inputText id="oldP" value="#{changePassView.oldPass}"/>
                 </div>
                 <div class="row-fluid">
-                    <h:outputLabel value="New password:" for="newP"/>
+                    <h:outputLabel value="#{messages['view.changePass.new']}" for="newP"/>
                     <h:inputText id="newP" value="#{changePassView.newPass}">
                         <f:validateLength minimum="16"/>
                         <f:validateRegex pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?!.*\\s)(?=.*[@#$%/-_.]).{16,30}"/>
@@ -32,7 +32,7 @@
                     </h:inputText>
                 </div>
                 <div class="row-fluid">
-                    <h:outputLabel value="Retype new password:" for="rP"/>
+                    <h:outputLabel value="#{messages['view.changePass.retypeNew']}" for="rP"/>
                     <h:inputText id="rP" value="#{changePassView.repeatPass}">
                         <f:validateLength minimum="16"/>
                         <a4j:ajax event="change"/>
