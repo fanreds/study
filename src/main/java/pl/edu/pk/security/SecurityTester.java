@@ -1,6 +1,6 @@
 package pl.edu.pk.security;
 
-import gnu.crypto.jce.GnuCrypto;
+//import gnu.crypto.jce.GnuCrypto;
 
 import javax.crypto.*;
 import javax.crypto.spec.*;
@@ -228,7 +228,7 @@ public class SecurityTester implements Serializable {
 
     public void AsymmetricTest() {
         try {
-            Security.addProvider(new GnuCrypto());
+//            Security.addProvider(new GnuCrypto());
             keyPairGenerator = KeyPairGenerator.getInstance("DSA");
             keyPairGenerator.initialize(512);
             KeyPair keyPair = keyPairGenerator.genKeyPair();
@@ -238,7 +238,7 @@ public class SecurityTester implements Serializable {
             String text = "you'll never walk alone";
 
 //            cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding",new GnuCrypto());
-            cipher = Cipher.getInstance("DES/CBC/PKCS5Padding", new GnuCrypto());
+//            cipher = Cipher.getInstance("DES/CBC/PKCS5Padding", new GnuCrypto());
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             encrypted = cipher.doFinal(text.getBytes());
 
