@@ -26,9 +26,10 @@
         </title>
         <!--<h:outputStylesheet library="css" name="style.css" />-->
         <link href="#{request.contextPath}/resource/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="#{request.contextPath}/resource/logo.js"></script>
     </h:head>
 
-    <h:body>
+    <h:body onload="getMargin()">
         <rich:notifyMessages globalOnly="true" nonblocking="true" nonblockingOpacity="0.6" onclick="$(this).hide()"/>
         <div id="kontener">
             <div id="naglowek"></div>

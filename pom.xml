@@ -155,7 +155,7 @@
                     <artifactId>${project.artifactId}</artifactId>
                     <force>true</force>
                     <ignoreMissingDeployment>true</ignoreMissingDeployment>
-                    <hostname>192.168.1.12</hostname>
+                    <hostname>192.168.1.10</hostname>
                     <!--<domain>-->
                         <!--<server-groups>-->
                             <!--<server-group>main-server-group</server-group>-->
