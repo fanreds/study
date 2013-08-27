@@ -24,7 +24,7 @@ public class MySingleton {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @PostConstruct
+    @PostConstruct
     public void init() {
 
         SecurityGenerator securityGenerator = new SecurityGenerator();
